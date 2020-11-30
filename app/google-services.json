@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "925123817185",
+    "firebase_url": "https://travelme-40bfa.firebaseio.com",
+    "project_id": "travelme-40bfa",
+    "storage_bucket": "travelme-40bfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925123817185:android:354d8a2a8c360781d811a0",
+        "android_client_info": {
+          "package_name": "com.project.travelme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925123817185-trd2a0ups1ogqq3aqgjcch4eijsblh13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnrSFCdZpZ6b-QJFn6dNYphkoxUGjdTUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925123817185-trd2a0ups1ogqq3aqgjcch4eijsblh13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925123817185:android:adb06019c2b4bf10d811a0",
+        "android_client_info": {
+          "package_name": "com.project.travelmedrivers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925123817185-trd2a0ups1ogqq3aqgjcch4eijsblh13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnrSFCdZpZ6b-QJFn6dNYphkoxUGjdTUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925123817185-trd2a0ups1ogqq3aqgjcch4eijsblh13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
