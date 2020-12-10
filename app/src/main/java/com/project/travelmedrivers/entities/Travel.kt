@@ -1,9 +1,9 @@
-package com.project.travelmedrivers.Entities
+package com.project.travelmedrivers.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.project.travelmedrivers.Utils.Address
-import com.project.travelmedrivers.Utils.Status
+import com.project.travelmedrivers.utils.Address
+import com.project.travelmedrivers.utils.Status
 
 class Travel {
     @Entity(tableName = "travel_table")

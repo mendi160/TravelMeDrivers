@@ -1,4 +1,4 @@
-package com.project.travelmedrivers.Utils
+package com.project.travelmedrivers.utils
 
 class Address {
     var _city: String
