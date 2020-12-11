@@ -2,10 +2,11 @@ package com.project.travelmedrivers.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.database.Exclude
 import com.project.travelmedrivers.utils.Address
 import com.project.travelmedrivers.utils.Status
+class Travel : java.io.Serializable{
 
-class Travel {
     @Entity(tableName = "travel_table")
     class Travel {
         @PrimaryKey(autoGenerate = true)
@@ -73,5 +74,19 @@ class Travel {
             this.status = status
             this.serviceProvider = serviceProvider
         }
+        //
+    @Exclude
+    fun toMap(): Map<String, Any>? {
+        val result: HashMap<String, Any> = HashMap()
+        result["name"] = name
+        result["phoneNumber"] = phoneNumber
+        result["email"] = email
+        result["passengers"] = passengers
+        result["departureDate"] =departureDate
+        result["returnDate"] =(returnDate)
+        result["SourceAdders"] = sourceAdders
+        result["status"] = status.name
+        return result
+    }
     }
 }

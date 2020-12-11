@@ -9,11 +9,13 @@ import com.google.firebase.database.ValueEventListener
 import com.project.travelmedrivers.entities.Travel
 
 class TravelDataSource :ITravelDataSource {
-    var travels : MutableList<Travel> = mutableListOf<Travel>()
+    var travels = mutableListOf<DataSnapshot>()
     var ref =FirebaseDatabase.getInstance().getReference("Travels").addValueEventListener(object :ValueEventListener{
         override fun onDataChange(snapshot: DataSnapshot) {
-
-        }
+            snapshot.children.forEach { it -> it.children.forEach{it->
+                travels.add(it)
+             } }
+   }
 
         override fun onCancelled(error: DatabaseError) {
             TODO("Not yet implemented")
@@ -22,4 +24,6 @@ class TravelDataSource :ITravelDataSource {
     override fun getAllTravels(): MutableList<Travel> {
         TODO("Not yet implemented")
     }
+
+
 }

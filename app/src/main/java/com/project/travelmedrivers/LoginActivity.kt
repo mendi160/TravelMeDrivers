@@ -11,6 +11,8 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.project.travelmedrivers.*
+import com.project.travelmedrivers.data.TravelDataSource
 
 
 class LoginActivity : AppCompatActivity() {
@@ -55,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
 
             if (resultCode == Activity.RESULT_OK) {
+
                 // Successfully signed in
                 if (!currentUser.isEmailVerified)
                     sendEmailVerification()
