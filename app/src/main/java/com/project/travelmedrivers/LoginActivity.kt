@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        currentUser = mAuth.currentUser!!
     }
 
     private fun createSignInIntent() {
@@ -43,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
+                .setAvailableProviders(providers).setIsSmartLockEnabled(false)
                 .build(),
             RC_SIGN_IN
         )
@@ -57,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
 
             if (resultCode == Activity.RESULT_OK) {
-
+                currentUser = mAuth.currentUser!!
                 // Successfully signed in
                 if (!currentUser.isEmailVerified)
                     sendEmailVerification()
