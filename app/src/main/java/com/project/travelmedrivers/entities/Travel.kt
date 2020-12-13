@@ -7,11 +7,11 @@ import androidx.room.TypeConverters
 import com.google.firebase.database.Exclude
 import com.project.travelmedrivers.utils.Status
 
-@Entity(tableName = "travel_table")
-class Travel {
+@Entity(tableName = "travels")
+class Travel() {
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 1000
-        private set
+    var id: String=""
+        set
         get() = field
      var name: String=""
          set
@@ -48,8 +48,7 @@ class Travel {
     var serviceProvider= mapOf("" to false)
         set
         get() = field
-    constructor()
-//    constructor(
+    //    constructor(
 //        id: Int,
 //        name: String,
 //        phoneNumber: Int,

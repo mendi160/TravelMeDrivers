@@ -1,25 +1,39 @@
 package com.project.travelmedrivers.data
 
+import android.content.Context
+import androidx.lifecycle.LiveData
 import com.project.travelmedrivers.entities.Travel
 
-class HistoryDataSource:IHistoryDataSource {
-    override fun addTravel(p: Travel?) {
-        TODO("Not yet implemented")
+class HistoryDataSource(context: Context?) : IHistoryDataSource {
+    private var travelDao: TravelDao
+
+    init {
+        val database = RoomDataSource.getInstance(context)
+        travelDao = database!!.travelDao!!
+        travelDao.clear()
     }
 
-    override fun addTravel(travelList: List<Travel?>?) {
-        TODO("Not yet implemented")
+    fun getTravel(id: String?): LiveData<Travel?>? {
+        return travelDao.get(id)
     }
 
-    override fun editTravel(p: Travel?) {
-        TODO("Not yet implemented")
+    override fun addTravel(p: Travel) {
+        travelDao.insert(p)
     }
 
-    override fun deleteTravel(p: Travel?) {
-        TODO("Not yet implemented")
+    override fun addTravels(travelList: List<Travel>) {
+        travelDao.insert(travelList)
+    }
+
+    override fun editTravel(p: Travel) {
+        travelDao.update(p)
+    }
+
+    override fun deleteTravel(p: Travel) {
+        travelDao.delete(p)
     }
 
     override fun clearTable() {
-        TODO("Not yet implemented")
+        travelDao.clear()
     }
 }
