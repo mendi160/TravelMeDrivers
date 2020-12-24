@@ -7,7 +7,6 @@ import com.google.firebase.database.*
 import com.project.travelmedrivers.data.ITravelDataSource.NotifyToTravelListListener
 import com.project.travelmedrivers.entities.Travel
 
-
 class TravelDataSource : ITravelDataSource {
     companion object {
         private var instance: TravelDataSource? = null
@@ -80,6 +79,4 @@ class TravelDataSource : ITravelDataSource {
     override fun setNotifyToTravelListListener(l: ITravelDataSource.NotifyToTravelListListener?) {
         notifyToTravelListListener = l;
     }
-
-
 }

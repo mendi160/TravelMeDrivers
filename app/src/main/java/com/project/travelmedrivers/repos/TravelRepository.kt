@@ -11,7 +11,7 @@ import com.project.travelmedrivers.entities.Travel
 
 
 class TravelRepository private constructor(application: Application) : ITravelRepository {
-    var travelDataSource: ITravelDataSource
+    var travelDataSource: ITravelDataSource = TravelDataSource.getInstance()!!
     private val historyDataSource: IHistoryDataSource
     private val mutableLiveData = MutableLiveData<List<Travel?>?>()
     override fun addTravel(travel: Travel?) {
@@ -39,13 +39,12 @@ class TravelRepository private constructor(application: Application) : ITravelRe
     }
 
     init {
-        travelDataSource = TravelDataSource.getInstance()!!
         historyDataSource = HistoryDataSource(application.applicationContext)
         val notifyToTravelListListener: NotifyToTravelListListener =
             object : NotifyToTravelListListener {
                 override fun onTravelsChanged() {
                     val travelList: List<Travel?> = travelDataSource.getAllTravels()
-                    mutableLiveData.setValue(travelList)
+                    mutableLiveData.value = travelList
                     historyDataSource.clearTable()
                     historyDataSource.addTravels(travelList as List<Travel>)
                 }
