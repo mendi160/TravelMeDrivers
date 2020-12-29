@@ -1,8 +1,10 @@
 package com.project.travelmedrivers
 
 import android.R.*
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,17 +14,25 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.project.travelmedrivers.*
-import com.project.travelmedrivers.data.TravelDataSource
+import kotlin.concurrent.thread
 
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         createSignInIntent()
+        sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE)
         mAuth = FirebaseAuth.getInstance()
+
+        currentUser = mAuth.currentUser!!
+        if (sharedPreferences.getBoolean(currentUser.uid, false)) {
+
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     override fun onStart() {
@@ -50,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // [START auth_fui_result]
+    @SuppressLint("CommitPrefEdits")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
@@ -60,8 +71,12 @@ class LoginActivity : AppCompatActivity() {
                 // Successfully signed in
                 if (!currentUser.isEmailVerified)
                     sendEmailVerification()
-                else
-                    startActivity(Intent(this,MainActivity::class.java))
+                else {
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean(currentUser.uid, true)
+                    editor.apply()
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
                 // val user = FirebaseAuth.getInstance().currentUser
                 //      sendEmailVerificationWithContinueUrl()
 

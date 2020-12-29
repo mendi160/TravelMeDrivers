@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.project.travelmedrivers.entities.Travel
 
-
 @Dao
 interface TravelDao {
     @Query("select * from travels")

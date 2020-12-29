@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.project.travelmedrivers.ui.gallery.GalleryFragment"
+        android:name="com.project.travelmedrivers.ui.gallery.RegisteredTravelsFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_registeredTravels" />
 
     <fragment
         android:id="@+id/nav_slideshow"

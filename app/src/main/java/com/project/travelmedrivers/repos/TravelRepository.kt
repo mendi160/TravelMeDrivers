@@ -14,21 +14,22 @@ import com.project.travelmedrivers.utils.AddressTool
 import com.project.travelmedrivers.utils.Status
 
 
-class TravelRepository private constructor(application: Application) : ITravelRepository {
+class TravelRepository(application: Application) : ITravelRepository {
     var travelDataSource: ITravelDataSource = TravelDataSource.getInstance()!!
-    private val historyDataSource: IHistoryDataSource
-    private val mutableLiveData = MutableLiveData<List<Travel?>?>()
-    private var userTravels: MutableList<Travel> = mutableListOf()
+    //private val historyDataSource: IHistoryDataSource
+     val mutableLiveData = MutableLiveData<List<Travel?>?>()
+     var userTravels: MutableList<Travel> = mutableListOf()
 
     init {
-        historyDataSource = HistoryDataSource(application.applicationContext)
+       // historyDataSource = HistoryDataSource(application.applicationContext)
         val notifyToTravelListListener: NotifyToTravelListListener =
             object : NotifyToTravelListListener {
                 override fun onTravelsChanged() {
                     val travelList: List<Travel?> = travelDataSource.getAllTravels()
                     mutableLiveData.value = travelList
-                    historyDataSource.clearTable()
-                    historyDataSource.addTravels(travelList as List<Travel>)
+                    mutableLiveData.postValue(travelList)
+                  //  historyDataSource.clearTable()
+                  //  historyDataSource.addTravels(travelList as List<Travel>)
                     userTravels()
                 }
             }
