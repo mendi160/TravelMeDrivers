@@ -37,6 +37,7 @@ class RegisteredTravelsFragment : Fragment() {
         return root
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = root.findViewById(R.id.rvRegisteredTravel)
@@ -47,7 +48,6 @@ class RegisteredTravelsFragment : Fragment() {
         }
         repo.mutableLiveData.observe(this, {
             itemList = (it as List<Travel>).toMutableList()
-
             recyclerView.adapter= TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
 
         })

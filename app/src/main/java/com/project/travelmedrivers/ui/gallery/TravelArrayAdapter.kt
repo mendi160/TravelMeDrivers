@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
-import com.project.travelmedrivers.utils.Status
 
 
 class TravelArrayAdapter(
     private val listItemLayout: Int,
-     val travelList: List<Travel>
+    private val travelList: List<Travel>
 ) :
     RecyclerView.Adapter<TravelArrayAdapter.ViewHolder>() {
     //All methods in this adapter are required for a bare minimum recyclerview adapter
@@ -37,14 +36,12 @@ class TravelArrayAdapter(
         val source = holder.source
         val destination = holder.destination
         val date = holder.date
-        val status = holder.status
+        //val confirm = holder.
         val company = holder.company
+        holder.travel = travelList[listPosition]
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
         date.text = travelList[listPosition].departureDate
-        status.adapter = ArrayAdapter<Status>(
-            getApplicationContext(), android.R.layout.simple_list_item_1, Status.values()
-        )
         company.adapter = ArrayAdapter<String>(
             getApplicationContext(),
             android.R.layout.simple_list_item_1,
@@ -57,25 +54,32 @@ class TravelArrayAdapter(
         var source: TextView
         var destination: TextView
         var date: TextView
-        var status: Spinner
+        var bConfirm: Button
+        var bRunning: Button
+        var bFinished: Button
         var company: Spinner
+        lateinit var travel: Travel
 
         init {
             itemView.setOnClickListener(this)
             source = itemView.findViewById(R.id.tvSource) as TextView
             destination = itemView.findViewById(R.id.tvDestination) as TextView
             date = itemView.findViewById(R.id.tvDate) as TextView
-            status = itemView.findViewById(R.id.sStatus) as Spinner
+            bConfirm = itemView.findViewById(R.id.bConfirm)
+            bRunning = itemView.findViewById(R.id.bRunning)
+            bFinished = itemView.findViewById(R.id.bFinished)
             company = itemView.findViewById(R.id.sCompany) as Spinner
-            status.onItemSelectedListener = object : OnItemSelectedListener {
+            company.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(
                     parentView: AdapterView<*>?,
                     selectedItemView: View,
                     position: Int,
                     id: Long
                 ) {
-
-                    Log.i("a","a")
+                    this@ViewHolder.travel
+                    travel.serviceProvider[parentView?.getItemIdAtPosition(position)
+                        .toString()] to true
+                    Log.i("a", "a")
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {

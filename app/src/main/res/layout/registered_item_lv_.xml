@@ -10,10 +10,7 @@
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:orientation="horizontal"
-
-
-        android:rowCount="3"
-        >
+        android:rowCount="4">
 
         <TextView
             android:id="@+id/textView2"
@@ -80,21 +77,35 @@
             android:layout_gravity="left"
             android:hint="@string/date" />
 
-        <Spinner
-            android:id="@+id/sStatus"
-            android:layout_width="145dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp" />
 
         <Spinner
             android:id="@+id/sCompany"
-            android:layout_width="155dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp" />
+            android:layout_width="wrap_content"
+            android:minHeight="20dp"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:layout_columnSpan="3" />
+        <Button
+            android:id="@+id/bConfirm"
+        android:layout_column="0"
+          android:layout_row="3"
+            android:text="Confirm"
+        />
+        <Button
+            android:id="@+id/bRunning"
+            android:layout_column="1"
+            android:layout_row="3"
+            android:text="Running"
+        />
+        <Button
+            android:text="Finished"
+            android:id="@+id/bFinished"
+            android:layout_column="2"
+            android:layout_row="3"
+        />
+
+
     </GridLayout>
 
 </LinearLayout>
