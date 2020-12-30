@@ -23,6 +23,7 @@ class RegisteredTravelsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private var itemList = mutableListOf<Travel>()
     private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var root: View
 
     @SuppressLint("RestrictedApi")
     override fun onCreateView(
@@ -31,22 +32,25 @@ class RegisteredTravelsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_registered, container, false)
-        recyclerView = root.findViewById(R.id.rvRegisteredTravel)
-        recyclerView.apply {
-            recyclerView.itemAnimator = DefaultItemAnimator()
-            recyclerView.layoutManager = LinearLayoutManager(getApplicationContext())
-            recyclerView.adapter = TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
-        }
-        repo.mutableLiveData.observe(this, {
-
-            itemList = (it as List<Travel>).toMutableList()
-            recyclerView.adapter?.notifyDataSetChanged()
-
-        })
-
-        return super.onCreateView(inflater, container, savedInstanceState)
+        root = inflater.inflate(R.layout.fragment_registered, container, false)
+        // return super.onCreateView(inflater, container, savedInstanceState)
+        return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = root.findViewById(R.id.rvRegisteredTravel)
+        recyclerView.apply {
+            itemAnimator = DefaultItemAnimator()
+            layoutManager = LinearLayoutManager(activity)
+            adapter = TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
+        }
+        repo.mutableLiveData.observe(this, {
+            itemList = (it as List<Travel>).toMutableList()
+
+            recyclerView.adapter= TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
+
+        })
+    }
 
 }

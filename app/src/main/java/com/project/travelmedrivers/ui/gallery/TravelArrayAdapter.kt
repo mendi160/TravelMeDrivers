@@ -1,12 +1,12 @@
 package com.project.travelmedrivers.ui.gallery
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.project.travelmedrivers.R
@@ -16,7 +16,7 @@ import com.project.travelmedrivers.utils.Status
 
 class TravelArrayAdapter(
     private val listItemLayout: Int,
-    private val travelList: List<Travel>
+     val travelList: List<Travel>
 ) :
     RecyclerView.Adapter<TravelArrayAdapter.ViewHolder>() {
     //All methods in this adapter are required for a bare minimum recyclerview adapter
@@ -52,7 +52,6 @@ class TravelArrayAdapter(
         )
     }
 
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var source: TextView
@@ -68,11 +67,27 @@ class TravelArrayAdapter(
             date = itemView.findViewById(R.id.tvDate) as TextView
             status = itemView.findViewById(R.id.sStatus) as Spinner
             company = itemView.findViewById(R.id.sCompany) as Spinner
+            status.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parentView: AdapterView<*>?,
+                    selectedItemView: View,
+                    position: Int,
+                    id: Long
+                ) {
 
+                    Log.i("a","a")
+                }
+
+                override fun onNothingSelected(parentView: AdapterView<*>?) {
+                    // your code here
+                }
+            }
         }
 
-        override fun onClick(view: View?) {
-            //Log.d("onclick", "onClick " + layoutPosition + " " + item.text)
+        override fun onClick(v: View?) {
+            TODO("Not yet implemented")
         }
     }
 }
+
+

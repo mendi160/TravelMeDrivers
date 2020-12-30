@@ -73,7 +73,7 @@ class TravelRepository(application: Application) : ITravelRepository {
         travelDataSource.updateTravel(travel)
     }
 
-    fun changeStatus(travel: Travel) {
+    fun changeReceivedStatus(travel: Travel) {
         travel.status = Status.RECEIVED
         travelDataSource.updateTravel(travel)
     }
