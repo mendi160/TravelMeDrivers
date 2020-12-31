@@ -43,11 +43,15 @@ class TravelArrayAdapter(
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
         date.text = travelList[listPosition].departureDate
+        val list = mutableListOf("Select")
+        travelList[listPosition].serviceProvider.keys.toList()
+            .forEach { it -> if (it != "") list.add(it) }
         company.adapter = ArrayAdapter<String>(
             getApplicationContext(),
             android.R.layout.simple_list_item_1,
-            travelList[listPosition].serviceProvider.keys.toMutableList()
+            list
         )
+
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -89,6 +93,12 @@ class TravelArrayAdapter(
                     position: Int,
                     id: Long
                 ) {
+                    if (position == 0) {
+                        bFinished.isEnabled = false
+                        bRunning.isEnabled = false
+                        bConfirm.isEnabled = false
+                        return
+                    }
                     this@ViewHolder.travel
                     travel.serviceProvider[parentView?.getItemIdAtPosition(position)
                         .toString()] to true
@@ -105,7 +115,7 @@ class TravelArrayAdapter(
         }
 
         override fun onClick(v: View?) {
-            Log.i("click","Click on linear layout")
+            Log.i("click", "Click on linear layout")
         }
     }
 }

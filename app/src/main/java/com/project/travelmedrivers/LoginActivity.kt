@@ -166,7 +166,7 @@ class LoginActivity : AppCompatActivity() {
                     if (currentUser.isEmailVerified) {
                         // user is verified, so you can finish this activity or send user to activity which you want.
                         // finish();
-                        Log.i("fff", "tusik")
+                        Log.i("fff", "email")
                         startActivity(Intent(this, MainActivity::class.java))
                         Toast.makeText(
                             this@LoginActivity,
