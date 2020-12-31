@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
+import com.project.travelmedrivers.utils.Status
 
 
 class TravelArrayAdapter(
@@ -66,8 +67,20 @@ class TravelArrayAdapter(
             destination = itemView.findViewById(R.id.tvDestination) as TextView
             date = itemView.findViewById(R.id.tvDate) as TextView
             bConfirm = itemView.findViewById(R.id.bConfirm)
+            bConfirm.setOnClickListener {
+                this@ViewHolder.travel
+                travel.status = Status.RECEIVED
+            }
             bRunning = itemView.findViewById(R.id.bRunning)
+            bRunning.setOnClickListener {
+                this@ViewHolder.travel
+                travel.status = Status.RUNNING
+            }
             bFinished = itemView.findViewById(R.id.bFinished)
+            bFinished.setOnClickListener {
+                this@ViewHolder.travel
+                travel.status = Status.CLOSED
+            }
             company = itemView.findViewById(R.id.sCompany) as Spinner
             company.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(
@@ -79,6 +92,9 @@ class TravelArrayAdapter(
                     this@ViewHolder.travel
                     travel.serviceProvider[parentView?.getItemIdAtPosition(position)
                         .toString()] to true
+                    bFinished.isEnabled = true
+                    bRunning.isEnabled = true
+                    bConfirm.isEnabled = true
                     Log.i("a", "a")
                 }
 
@@ -89,7 +105,7 @@ class TravelArrayAdapter(
         }
 
         override fun onClick(v: View?) {
-            TODO("Not yet implemented")
+            Log.i("click","Click on linear layout")
         }
     }
 }
