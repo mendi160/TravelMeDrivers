@@ -7,13 +7,13 @@ import com.google.firebase.database.*
 import com.project.travelmedrivers.data.ITravelDataSource.NotifyToTravelListListener
 import com.project.travelmedrivers.entities.Travel
 
-class TravelDataSource : ITravelDataSource {
+class TravelDataSource private constructor() : ITravelDataSource {
+    private object HOLDER {
+        val INSTANCE = TravelDataSource()
+    }
+
     companion object {
-        private var instance: TravelDataSource? = null
-        fun getInstance(): TravelDataSource? {
-            if (instance == null) instance = TravelDataSource()
-            return instance
-        }
+        val instance: TravelDataSource by lazy { HOLDER.INSTANCE }
     }
 
     var travelsList = mutableListOf<Travel>()

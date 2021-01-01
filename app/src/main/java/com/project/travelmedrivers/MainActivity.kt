@@ -26,7 +26,7 @@ import com.project.travelmedrivers.data.TravelDataSource
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    val x= TravelDataSource()
+    val x= TravelDataSource.instance
     val d=x.travelsList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

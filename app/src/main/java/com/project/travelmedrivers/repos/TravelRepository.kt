@@ -1,11 +1,8 @@
 package com.project.travelmedrivers.repos
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import com.project.travelmedrivers.data.HistoryDataSource
-import com.project.travelmedrivers.data.IHistoryDataSource
 import com.project.travelmedrivers.data.ITravelDataSource
 import com.project.travelmedrivers.data.ITravelDataSource.NotifyToTravelListListener
 import com.project.travelmedrivers.data.TravelDataSource
@@ -14,22 +11,31 @@ import com.project.travelmedrivers.utils.AddressTool
 import com.project.travelmedrivers.utils.Status
 
 
-class TravelRepository(application: Application) : ITravelRepository {
-    var travelDataSource: ITravelDataSource = TravelDataSource.getInstance()!!
+class TravelRepository private constructor() : ITravelRepository {
+    var travelDataSource: ITravelDataSource = TravelDataSource.instance
+
     //private val historyDataSource: IHistoryDataSource
-     val mutableLiveData = MutableLiveData<List<Travel?>?>()
-     var userTravels: MutableList<Travel> = mutableListOf()
+    val mutableLiveData = MutableLiveData<List<Travel?>?>()
+    var userTravels: MutableList<Travel> = mutableListOf()
+
+    private object HOLDER {
+        val INSTANCE = TravelRepository()
+    }
+
+    companion object {
+        val instance: TravelRepository by lazy { HOLDER.INSTANCE }
+    }
 
     init {
-       // historyDataSource = HistoryDataSource(application.applicationContext)
+        // historyDataSource = HistoryDataSource(application.applicationContext)
         val notifyToTravelListListener: NotifyToTravelListListener =
             object : NotifyToTravelListListener {
                 override fun onTravelsChanged() {
                     val travelList: List<Travel?> = travelDataSource.getAllTravels()
                     mutableLiveData.value = travelList
                     mutableLiveData.postValue(travelList)
-                  //  historyDataSource.clearTable()
-                  //  historyDataSource.addTravels(travelList as List<Travel>)
+                    //  historyDataSource.clearTable()
+                    //  historyDataSource.addTravels(travelList as List<Travel>)
                     userTravels()
                 }
             }
@@ -50,14 +56,6 @@ class TravelRepository(application: Application) : ITravelRepository {
 
     override fun getIsSuccess(): MutableLiveData<Boolean?> {
         return travelDataSource.getIsSuccess()
-    }
-
-    companion object {
-        private var instance: TravelRepository? = null
-        fun getInstance(application: Application): TravelRepository? {
-            if (instance == null) instance = TravelRepository(application)
-            return instance
-        }
     }
 
     fun userTravels() {

@@ -2,7 +2,6 @@ package com.project.travelmedrivers.ui.gallery
 
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.repos.TravelRepository
@@ -19,7 +17,7 @@ import com.project.travelmedrivers.repos.TravelRepository
 
 class RegisteredTravelsFragment : Fragment() {
     @SuppressLint("RestrictedApi")
-    private val repo = TravelRepository(getApplicationContext() as Application)
+    private val repo = TravelRepository.instance
     private lateinit var recyclerView: RecyclerView
     private var itemList = mutableListOf<Travel>()
     private lateinit var galleryViewModel: GalleryViewModel
@@ -48,7 +46,7 @@ class RegisteredTravelsFragment : Fragment() {
         }
         repo.mutableLiveData.observe(this, {
             itemList = (it as List<Travel>).toMutableList()
-            recyclerView.adapter= TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
+            recyclerView.adapter = TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
 
         })
     }

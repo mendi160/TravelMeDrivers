@@ -43,13 +43,10 @@ class TravelArrayAdapter(
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
         date.text = travelList[listPosition].departureDate
-        val list = mutableListOf("Select")
-        travelList[listPosition].serviceProvider.keys.toList()
-            .forEach { it -> if (it != "") list.add(it) }
         company.adapter = ArrayAdapter<String>(
             getApplicationContext(),
             android.R.layout.simple_list_item_1,
-            list
+            travelList[listPosition].serviceProvider.keys.toMutableList()
         )
 
     }
