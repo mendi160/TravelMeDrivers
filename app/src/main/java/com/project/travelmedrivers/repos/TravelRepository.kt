@@ -59,11 +59,8 @@ class TravelRepository private constructor() : ITravelRepository {
     }
 
     fun userTravels() {
-        val userID = FirebaseAuth.getInstance().currentUser?.email
-        if (userID != null) {
-            userTravels =
-                mutableLiveData.value?.filter { it -> it?.email == userID && it.status != Status.CLOSED } as MutableList<Travel>
-        }
+        userTravels =
+            mutableLiveData.value?.filter { it -> it?.status != Status.CLOSED } as MutableList<Travel>
     }
 
     fun confirmCompany(travel: Travel, companyEmail: String) {

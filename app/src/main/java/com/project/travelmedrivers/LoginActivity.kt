@@ -14,7 +14,6 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.project.travelmedrivers.*
-import kotlin.concurrent.thread
 
 
 class LoginActivity : AppCompatActivity() {
@@ -27,11 +26,12 @@ class LoginActivity : AppCompatActivity() {
         createSignInIntent()
         sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE)
         mAuth = FirebaseAuth.getInstance()
+        if (mAuth.currentUser != null) {
+            currentUser = mAuth.currentUser!!
+            if (sharedPreferences.getBoolean(currentUser.uid, false)) {
 
-        currentUser = mAuth.currentUser!!
-        if (sharedPreferences.getBoolean(currentUser.uid, false)) {
-
-            startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         }
     }
 
