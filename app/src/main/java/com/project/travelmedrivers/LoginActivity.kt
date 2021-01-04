@@ -23,16 +23,18 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        createSignInIntent()
+
         sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE)
         mAuth = FirebaseAuth.getInstance()
         if (mAuth.currentUser != null) {
             currentUser = mAuth.currentUser!!
             if (sharedPreferences.getBoolean(currentUser.uid, false)) {
-
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
+                return
             }
         }
+        createSignInIntent()
     }
 
     override fun onStart() {
@@ -65,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
-
             if (resultCode == Activity.RESULT_OK) {
                 currentUser = mAuth.currentUser!!
                 // Successfully signed in

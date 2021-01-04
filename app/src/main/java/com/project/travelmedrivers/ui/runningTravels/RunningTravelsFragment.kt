@@ -1,7 +1,8 @@
-package com.project.travelmedrivers.ui.gallery
+package com.project.travelmedrivers.ui.runningTravels
 
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +16,11 @@ import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.repos.TravelRepository
 
 
-class RegisteredTravelsFragment : Fragment() {
+class RunningTravelsFragment : Fragment() {
     @SuppressLint("RestrictedApi")
-    private val repo = TravelRepository.instance
+    private val repo = TravelRepository.getInstance(Application())
     private lateinit var recyclerView: RecyclerView
     private var itemList = mutableListOf<Travel>()
-    private lateinit var galleryViewModel: GalleryViewModel
     private lateinit var root: View
 
     @SuppressLint("RestrictedApi")
@@ -30,7 +30,7 @@ class RegisteredTravelsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        root = inflater.inflate(R.layout.fragment_registered, container, false)
+        root = inflater.inflate(R.layout.fragment_running_travels, container, false)
         // return super.onCreateView(inflater, container, savedInstanceState)
         return root
     }
@@ -38,15 +38,15 @@ class RegisteredTravelsFragment : Fragment() {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = root.findViewById(R.id.rvRegisteredTravel)
+        recyclerView = root.findViewById(R.id.rvRunningTravel)
         recyclerView.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(activity)
-            adapter = TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
+            adapter = RunningTravelArrayAdapter(R.layout.running_item_lv_, itemList)
         }
         repo.mutableLiveData.observe(this, {
             itemList = (it as List<Travel>).toMutableList()
-            recyclerView.adapter = TravelArrayAdapter(R.layout.registered_item_lv_, itemList)
+            recyclerView.adapter = RunningTravelArrayAdapter(R.layout.running_item_lv_, itemList)
 
         })
     }

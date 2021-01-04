@@ -16,7 +16,7 @@ import com.project.travelmedrivers.entities.Travel
 abstract class RoomDataSource : RoomDatabase() {
     abstract val travelDao: TravelDao?
     companion object {
-        const val DATABASE_NAME = "Localdatabase"
+        private const val DATABASE_NAME = "Localdatabase"
         private var database: RoomDataSource? = null
         fun getInstance(context: Context?): RoomDataSource? {
             if (database == null) database = context?.let {

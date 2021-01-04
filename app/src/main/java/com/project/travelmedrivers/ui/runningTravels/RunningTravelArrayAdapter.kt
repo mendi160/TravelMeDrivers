@@ -1,4 +1,4 @@
-package com.project.travelmedrivers.ui.gallery
+package com.project.travelmedrivers.ui.runningTravels
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -14,11 +14,11 @@ import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.utils.Status
 
 
-class TravelArrayAdapter(
+class RunningTravelArrayAdapter(
     private val listItemLayout: Int,
     private val travelList: List<Travel>
 ) :
-    RecyclerView.Adapter<TravelArrayAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RunningTravelArrayAdapter.ViewHolder>() {
     //All methods in this adapter are required for a bare minimum recyclerview adapter
     // get the size of the list
     override fun getItemCount(): Int {
