@@ -6,16 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.repos.ITravelRepository
 import com.project.travelmedrivers.repos.TravelRepository
+import com.project.travelmedrivers.utils.Status
 
 
 class MainViewModel(p: Application) : AndroidViewModel(p) {
     private val repository: ITravelRepository
-    lateinit var registeredTravelsFragment: MutableLiveData<List<Travel>>
+    lateinit var openTravelsFragment: MutableLiveData<List<Travel>>
     lateinit var runningTravelsFragment: MutableLiveData<List<Travel>>
     lateinit var closedTravelsFragment: MutableLiveData<List<Travel>>
 
     init {
+
         repository = TravelRepository.getInstance(p)
+        repository.getAllTravels()?.observeForever {
+            openTravelsFragment.postValue(repository!!.getAllTravels()!!.value?.filter { travel -> travel!!.status == Status.SENT } as List<Travel>?)
+
+        }
 
     }
 

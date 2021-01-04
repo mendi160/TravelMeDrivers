@@ -42,7 +42,7 @@ class RunningTravelsFragment : Fragment() {
         recyclerView.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(activity)
-            adapter = RunningTravelArrayAdapter(R.layout.running_item_lv_, itemList)
+            //adapter = RunningTravelArrayAdapter(R.layout.running_item_lv_, itemList)
         }
         repo.mutableLiveData.observe(this, {
             itemList = (it as List<Travel>).toMutableList()

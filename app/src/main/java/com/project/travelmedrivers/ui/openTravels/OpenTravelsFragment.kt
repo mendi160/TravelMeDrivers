@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
@@ -28,11 +29,11 @@ import com.project.travelmedrivers.repos.TravelRepository
 class OpenTravelsFragment : Fragment() {
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     lateinit var rvOpenTravels: RecyclerView
-    lateinit var arrayAdapter: OpenTravelArrayAdapter
+     lateinit var arrayAdapter: OpenTravelArrayAdapter
     lateinit var etLocation: EditText
     lateinit var editDistance: EditText
     lateinit var bFilter: Button
-    var openTravelList = mutableListOf<Travel>()
+    private var openTravelList = mutableListOf<Travel>()
     private lateinit var repo: TravelRepository
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,17 +46,24 @@ class OpenTravelsFragment : Fragment() {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arrayAdapter= OpenTravelArrayAdapter(openTravelList)
         repo = TravelRepository.getInstance(activity?.application as Application)
         etLocation = view.findViewById<EditText>(R.id.etLocation)
         editDistance = view.findViewById<EditText>(R.id.etDistance)
         bFilter = view.findViewById(R.id.bFilter)
         bFilter.setOnClickListener {
-            if (etLocation.text.toString() != "" && editDistance.text.toString() != "")
+            if (etLocation.text.toString() != "" && editDistance.text.toString() != "") {
                 arrayAdapter.travelList = repo.relevantTravels(
-                    etLocation.text.toString().toInt(),
+                    editDistance.text.toString().toInt(),
                     etLocation.text.toString(),
                     requireActivity().applicationContext
+
                 )
+                rvOpenTravels.adapter=arrayAdapter
+            }
+            else{
+                rvOpenTravels.adapter= OpenTravelArrayAdapter(openTravelList)
+            }
         }
         etLocation.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) autocomplete() }
         rvOpenTravels = view.findViewById(R.id.rvOpenTravel)
