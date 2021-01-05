@@ -66,7 +66,9 @@ class OpenTravelArrayAdapter(
                 val key = FirebaseAuth.getInstance().currentUser?.email?.let { it1 ->
                     Util.emailToKey(it1)
                 }
-                this@ViewHolder.travel.serviceProvider.plus(key to false)
+                if (key != null) {
+                    this@ViewHolder.travel.serviceProvider[key] = false
+                }
                 viewModel.updateTravel(this.travel)
             }
         }
