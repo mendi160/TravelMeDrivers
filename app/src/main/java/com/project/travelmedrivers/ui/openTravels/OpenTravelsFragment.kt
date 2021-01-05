@@ -46,15 +46,11 @@ class OpenTravelsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_open_travels, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = activity?.let { ViewModelProviders.of(it).get(MainViewModel::class.java) }!!
-    }
-
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arrayAdapter = OpenTravelArrayAdapter(openTravelList)
+        viewModel = activity?.let { ViewModelProviders.of(it).get(MainViewModel::class.java) }!!
+        arrayAdapter = OpenTravelArrayAdapter(openTravelList, viewModel)
         repo = TravelRepository.getInstance(activity?.application as Application)
         etLocation = view.findViewById<EditText>(R.id.etLocation)
         editDistance = view.findViewById<EditText>(R.id.etDistance)
@@ -62,7 +58,7 @@ class OpenTravelsFragment : Fragment() {
         bFilter.setOnClickListener {
             if (etLocation.text.toString() != "" && editDistance.text.toString() != "") {
                 val t = Thread {
-                    arrayAdapter.travelList = repo.relevantTravels(
+                    arrayAdapter.travelList = viewModel.relevantTravels(
                         editDistance.text.toString().toInt(),
                         etLocation.text.toString(),
                         requireActivity().applicationContext
@@ -72,7 +68,7 @@ class OpenTravelsFragment : Fragment() {
                 while (t.isAlive);
                 rvOpenTravels.adapter = arrayAdapter
             } else {
-                rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList)
+                rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList, viewModel)
             }
         }
         etLocation.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) autocomplete() }
@@ -83,9 +79,13 @@ class OpenTravelsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // adapter = arrayAdapter
         }
-        repo.mutableLiveData.observe(this, {
-            openTravelList = (it as List<Travel>).toMutableList()
-            rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList)
+        viewModel.openTravelsFragment?.observe(this, {
+            if (it?.size != 0) {
+
+                openTravelList = it as MutableList<Travel>
+                rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList, viewModel)
+            }
+
 
         })
 

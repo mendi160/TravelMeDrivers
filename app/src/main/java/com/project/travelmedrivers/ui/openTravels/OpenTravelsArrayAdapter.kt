@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
+import com.project.travelmedrivers.ui.MainViewModel
 import com.project.travelmedrivers.utils.Util
 
 
 class OpenTravelArrayAdapter(
-    var travelList: List<Travel?>
+    var travelList: List<Travel?>,
+    var viewModel: MainViewModel
 ) :
     RecyclerView.Adapter<OpenTravelArrayAdapter.ViewHolder>() {
     //All methods in this adapter are required for a bare minimum recyclerview adapter
@@ -25,7 +27,8 @@ class OpenTravelArrayAdapter(
 
     // specify the row layout file and click for each row
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.open_item_lv, parent, false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.open_item_lv, parent, false)
         return ViewHolder(view)
     }
 
@@ -43,7 +46,7 @@ class OpenTravelArrayAdapter(
         passenger.text = travelList[listPosition]!!.passengers.toString()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var source: TextView
         var destination: TextView
@@ -64,6 +67,7 @@ class OpenTravelArrayAdapter(
                     Util.emailToKey(it1)
                 }
                 this@ViewHolder.travel.serviceProvider.plus(key to false)
+                viewModel.updateTravel(this.travel)
             }
         }
 

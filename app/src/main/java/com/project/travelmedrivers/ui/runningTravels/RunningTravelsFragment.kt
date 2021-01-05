@@ -8,15 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.repos.TravelRepository
+import com.project.travelmedrivers.ui.MainViewModel
 
 
 class RunningTravelsFragment : Fragment() {
+    private lateinit var viewModel: MainViewModel
+
     @SuppressLint("RestrictedApi")
     private val repo = TravelRepository.getInstance(Application())
     private lateinit var recyclerView: RecyclerView
@@ -38,13 +42,14 @@ class RunningTravelsFragment : Fragment() {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = activity?.let { ViewModelProviders.of(it).get(MainViewModel::class.java) }!!
         recyclerView = root.findViewById(R.id.rvRunningTravel)
         recyclerView.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(activity)
             //adapter = RunningTravelArrayAdapter(R.layout.running_item_lv_, itemList)
         }
-        repo.mutableLiveData.observe(this, {
+        viewModel.runningTravelsFragment?.observe(this, {
             itemList = (it as List<Travel>).toMutableList()
             recyclerView.adapter = RunningTravelArrayAdapter(R.layout.running_item_lv_, itemList)
 
