@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.repos.TravelRepository
+import com.project.travelmedrivers.ui.MainViewModel
 
 class OpenTravelsFragment : Fragment() {
     private val AUTOCOMPLETE_REQUEST_CODE = 1
@@ -35,7 +37,7 @@ class OpenTravelsFragment : Fragment() {
     private var openTravelList = mutableListOf<Travel>()
     private lateinit var repo: TravelRepository
 
-    // lateinit var viewModel: MainViewModel
+    lateinit var viewModel: MainViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +48,7 @@ class OpenTravelsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // viewModel = activity?.let { ViewModelProviders.of(it).get(MainViewModel::class.java) }!!
+        viewModel = activity?.let { ViewModelProviders.of(it).get(MainViewModel::class.java) }!!
     }
 
     @SuppressLint("FragmentLiveDataObserve")
@@ -59,11 +61,15 @@ class OpenTravelsFragment : Fragment() {
         bFilter = view.findViewById(R.id.bFilter)
         bFilter.setOnClickListener {
             if (etLocation.text.toString() != "" && editDistance.text.toString() != "") {
-                arrayAdapter.travelList = repo.relevantTravels(
-                    editDistance.text.toString().toInt(),
-                    etLocation.text.toString(),
-                    requireActivity().applicationContext
-                )
+                val t = Thread {
+                    arrayAdapter.travelList = repo.relevantTravels(
+                        editDistance.text.toString().toInt(),
+                        etLocation.text.toString(),
+                        requireActivity().applicationContext
+                    )
+                }
+                t.start()
+                while (t.isAlive);
                 rvOpenTravels.adapter = arrayAdapter
             } else {
                 rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList)
