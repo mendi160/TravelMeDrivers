@@ -1,7 +1,11 @@
 package com.project.travelmedrivers.entities
 
-import androidx.room.*
-import com.google.firebase.database.Exclude
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.project.travelmedrivers.utils.CompanyConverter
+import com.project.travelmedrivers.utils.DestinationAddresses
+import com.project.travelmedrivers.utils.RequestType
 import com.project.travelmedrivers.utils.Status
 
 @Entity(tableName = "travels")
@@ -23,7 +27,7 @@ class Travel() {
         set
         get() = field
 
-    @Ignore
+    @TypeConverters(DestinationAddresses::class)
     var destinationAddress = mutableListOf<String>()
         set
         get() = field
@@ -49,67 +53,4 @@ class Travel() {
     var serviceProvider = mutableMapOf<String, Boolean>()
         set
         get() = field
-
-    @Exclude
-    fun toMap(): MutableMap<String, Any>? {
-        val result: HashMap<String, Any> = HashMap()
-        result["name"] = name
-        result["phoneNumber"] = phoneNumber
-        result["email"] = email
-        result["passengers"] = passengers
-        result["departureDate"] = departureDate
-        result["returnDate"] = (returnDate)
-        result["SourceAdders"] = sourceAdders
-        result["status"] = status.name
-        return result
-    }
-}
-
-class RequestType {
-    @TypeConverter
-    fun getType(numeral: Int): Status? {
-        return when (numeral) {
-            0 -> Status.SENT
-            1 -> Status.RECEIVED
-            2 -> Status.RUNNING
-            3 -> Status.CLOSED
-            4 -> Status.PAID
-            else -> null
-        }
-    }
-
-    @TypeConverter
-    fun getTypeInt(status: Status): Int? {
-        return status.ordinal
-    }
-}
-
-class CompanyConverter {
-    @TypeConverter
-    fun fromString(value: String?): MutableMap<String, Boolean>? {
-        if (value == null || value.isEmpty()) return null
-        val mapString =
-            value.split(",").toTypedArray() //split map into array of (string,boolean) strings
-        val hashMap: MutableMap<String, Boolean> = HashMap()
-        for (s1 in mapString)  //for all (string,boolean) in the map string
-        {
-            if (s1.isNotEmpty()) { //is empty maybe will needed because the last char in the string is ","
-                val s2 = s1.split(":")
-                    .toTypedArray() //split (string,boolean) to company string and boolean string.
-                val aBoolean = java.lang.Boolean.parseBoolean(s2[1])
-                hashMap[s2[0]] = aBoolean
-            }
-        }
-        return hashMap
-    }
-
-    @TypeConverter
-    fun asString(map: MutableMap<String?, Boolean?>?): String? {
-        if (map == null) return null
-        val mapString = StringBuilder()
-        for ((key, value) in map.entries) mapString.append(
-            key
-        ).append(":").append(value).append(",")
-        return mapString.toString()
-    }
 }

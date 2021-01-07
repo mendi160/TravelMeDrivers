@@ -2,6 +2,7 @@ package com.project.travelmedrivers.repos
 
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.data.HistoryDataSource
@@ -52,7 +53,7 @@ class TravelRepository private constructor(application: Application) : ITravelRe
                     mutableLiveData.postValue(travelList)
                     historyDataSource.clearTable()
                     historyDataSource.addTravels(travelList.filter { it -> it!!.status == Status.CLOSED } as List<Travel>)
-                    val l = historyDataSource.getAllTRavels()
+                    val l = historyDataSource.getAllTravels()
                     userTravels()
 
                 }
@@ -70,6 +71,10 @@ class TravelRepository private constructor(application: Application) : ITravelRe
 
     override fun getAllTravels(): MutableLiveData<List<Travel?>?>? {
         return mutableLiveData
+    }
+
+    override fun getLocalTravels(): LiveData<List<Travel>> {
+        return historyDataSource.getAllTravels()
     }
 
     override fun getIsSuccess(): MutableLiveData<Boolean?> {

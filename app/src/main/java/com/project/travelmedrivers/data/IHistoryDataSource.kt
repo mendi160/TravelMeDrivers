@@ -8,7 +8,7 @@ interface IHistoryDataSource {
     fun addTravels(travelList: List<Travel>)
     fun editTravel(p: Travel)
     fun deleteTravel(p: Travel)
-    fun getAllTRavels(): LiveData<List<Travel>>
+    fun getAllTravels(): LiveData<List<Travel>>
     fun clearTable()
 
 }

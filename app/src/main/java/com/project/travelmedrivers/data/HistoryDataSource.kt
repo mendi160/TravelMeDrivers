@@ -1,6 +1,7 @@
 package com.project.travelmedrivers.data
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.project.travelmedrivers.entities.Travel
 
@@ -33,7 +34,8 @@ class HistoryDataSource(context: Context?) : IHistoryDataSource {
         travelDao.delete(p)
     }
 
-    override fun getAllTRavels(): LiveData<List<Travel>> {
+    override fun getAllTravels(): LiveData<List<Travel>> {
+        val l= travelDao.getAll().observeForever{it -> Log.i("test",it.size.toString())}
         return travelDao.getAll()
     }
 

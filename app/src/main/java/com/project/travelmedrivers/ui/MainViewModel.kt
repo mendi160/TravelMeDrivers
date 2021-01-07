@@ -33,8 +33,10 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
                         }] == true
                         && travel.status == Status.RUNNING
             })
-            closedTravelsFragment?.postValue(it!!.filter { travel -> travel!!.status == Status.CLOSED })
             openTravelsFragment?.postValue(it?.filter { travel -> travel!!.status == Status.SENT })
+        }
+        repository.getLocalTravels().observeForever {
+            closedTravelsFragment?.postValue(it)
         }
 
     }
