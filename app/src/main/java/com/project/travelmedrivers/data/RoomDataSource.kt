@@ -6,13 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.project.travelmedrivers.entities.CompanyConverter
+import com.project.travelmedrivers.entities.RequestType
 import com.project.travelmedrivers.entities.Travel
 
 
 @Database(entities = [Travel::class], version = 1, exportSchema = false)
-@TypeConverters(CompanyConverter::class)
+@TypeConverters(CompanyConverter::class, RequestType::class)
 abstract class RoomDataSource : RoomDatabase() {
     abstract val travelDao: TravelDao?
+
     companion object {
         private const val DATABASE_NAME = "Localdatabase"
         private var database: RoomDataSource? = null

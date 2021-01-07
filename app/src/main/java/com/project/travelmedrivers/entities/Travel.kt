@@ -40,7 +40,7 @@ class Travel() {
         set
         get() = field
 
-    @Ignore
+    @TypeConverters(RequestType::class)
     var status = Status.SENT
         set
         get() = field
@@ -62,6 +62,25 @@ class Travel() {
         result["SourceAdders"] = sourceAdders
         result["status"] = status.name
         return result
+    }
+}
+
+class RequestType {
+    @TypeConverter
+    fun getType(numeral: Int): Status? {
+        return when (numeral) {
+            0 -> Status.SENT
+            1 -> Status.RECEIVED
+            2 -> Status.RUNNING
+            3 -> Status.CLOSED
+            4 -> Status.PAID
+            else -> null
+        }
+    }
+
+    @TypeConverter
+    fun getTypeInt(status: Status): Int? {
+        return status.ordinal
     }
 }
 
