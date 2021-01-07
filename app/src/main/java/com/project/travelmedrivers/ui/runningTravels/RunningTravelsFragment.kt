@@ -2,7 +2,6 @@ package com.project.travelmedrivers.ui.runningTravels
 
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
-import com.project.travelmedrivers.repos.TravelRepository
 import com.project.travelmedrivers.ui.MainViewModel
 
 
@@ -22,7 +20,6 @@ class RunningTravelsFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     @SuppressLint("RestrictedApi")
-    private val repo = TravelRepository.getInstance(Application())
     private lateinit var recyclerView: RecyclerView
     private var itemList = mutableListOf<Travel>()
     private lateinit var root: View

@@ -6,8 +6,8 @@ import com.project.travelmedrivers.entities.Travel
 
 @Dao
 interface TravelDao {
-    @Query("select * from travels")
-    fun getAll(): LiveData<List<Travel?>?>?
+   @Query("select * from travels")
+    fun getAll(): LiveData<List<Travel>>
 
     @Query("select * from travels where id=:id")
     fun get(id: String?): LiveData<Travel?>?
@@ -24,6 +24,6 @@ interface TravelDao {
     @Delete
     fun delete(vararg travels: Travel?)
 
-    @Query("delete from travels")
+ @Query("delete  from travels")
     fun clear()
 }
