@@ -42,7 +42,7 @@ class TravelRepository private constructor(application: Application) : ITravelRe
 
     init {
         historyDataSource = HistoryDataSource(application.applicationContext)
-        val l = historyDataSource.getAllTRavels()
+
 
         val notifyToTravelListListener: NotifyToTravelListListener =
             object : NotifyToTravelListListener {
@@ -51,8 +51,10 @@ class TravelRepository private constructor(application: Application) : ITravelRe
                     mutableLiveData.value = travelList
                     mutableLiveData.postValue(travelList)
                     historyDataSource.clearTable()
-                    historyDataSource.addTravels(travelList as List<Travel>)
+                    historyDataSource.addTravels(travelList.filter { it -> it!!.status == Status.CLOSED } as List<Travel>)
+                    val l = historyDataSource.getAllTRavels()
                     userTravels()
+
                 }
             }
         travelDataSource.setNotifyToTravelListListener(notifyToTravelListListener)

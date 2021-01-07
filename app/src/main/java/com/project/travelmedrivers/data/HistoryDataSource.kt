@@ -10,7 +10,7 @@ class HistoryDataSource(context: Context?) : IHistoryDataSource {
     init {
         val database = RoomDataSource.getInstance(context)
         travelDao = database!!.travelDao!!
-        travelDao.clear()
+      //  travelDao.clear()
     }
 
     fun getTravel(id: String?): LiveData<Travel?>? {
