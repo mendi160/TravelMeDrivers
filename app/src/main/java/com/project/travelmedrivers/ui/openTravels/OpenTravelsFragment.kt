@@ -2,7 +2,6 @@ package com.project.travelmedrivers.ui.openTravels
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +23,6 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
-import com.project.travelmedrivers.repos.TravelRepository
 import com.project.travelmedrivers.ui.MainViewModel
 
 class OpenTravelsFragment : Fragment() {
@@ -35,8 +33,6 @@ class OpenTravelsFragment : Fragment() {
     lateinit var editDistance: EditText
     lateinit var bFilter: Button
     private var openTravelList = mutableListOf<Travel>()
-    private lateinit var repo: TravelRepository
-
     lateinit var viewModel: MainViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +47,6 @@ class OpenTravelsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = activity?.let { ViewModelProviders.of(it).get(MainViewModel::class.java) }!!
         arrayAdapter = OpenTravelArrayAdapter(openTravelList, viewModel)
-        repo = TravelRepository.getInstance(activity?.application as Application)
         etLocation = view.findViewById<EditText>(R.id.etLocation)
         editDistance = view.findViewById<EditText>(R.id.etDistance)
         bFilter = view.findViewById(R.id.bFilter)
