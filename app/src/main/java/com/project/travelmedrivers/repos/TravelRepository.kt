@@ -17,7 +17,7 @@ import com.project.travelmedrivers.utils.Status
 class TravelRepository private constructor(application: Application) : ITravelRepository {
     var travelDataSource: ITravelDataSource = TravelDataSource.instance
 
-   private val historyDataSource: IHistoryDataSource
+    private val historyDataSource: IHistoryDataSource
     val mutableLiveData = MutableLiveData<List<Travel?>?>()
     var userTravels: MutableList<Travel> = mutableListOf()
 
@@ -42,6 +42,8 @@ class TravelRepository private constructor(application: Application) : ITravelRe
 
     init {
         historyDataSource = HistoryDataSource(application.applicationContext)
+        val l = historyDataSource.getAllTRavels()
+
         val notifyToTravelListListener: NotifyToTravelListListener =
             object : NotifyToTravelListListener {
                 override fun onTravelsChanged() {

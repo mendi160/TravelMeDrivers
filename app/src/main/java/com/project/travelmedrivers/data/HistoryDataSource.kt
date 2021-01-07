@@ -18,7 +18,7 @@ class HistoryDataSource(context: Context?) : IHistoryDataSource {
     }
 
     override fun addTravel(p: Travel) {
-       travelDao.insert(p)
+        travelDao.insert(p)
     }
 
     override fun addTravels(travelList: List<Travel>) {
@@ -26,11 +26,15 @@ class HistoryDataSource(context: Context?) : IHistoryDataSource {
     }
 
     override fun editTravel(p: Travel) {
-       travelDao.update(p)
+        travelDao.update(p)
     }
 
     override fun deleteTravel(p: Travel) {
         travelDao.delete(p)
+    }
+
+    override fun getAllTRavels(): LiveData<List<Travel>> {
+        return travelDao.getAll()
     }
 
     override fun clearTable() {

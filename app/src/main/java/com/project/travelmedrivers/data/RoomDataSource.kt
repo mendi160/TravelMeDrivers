@@ -10,9 +10,7 @@ import com.project.travelmedrivers.entities.Travel
 
 
 @Database(entities = [Travel::class], version = 1, exportSchema = false)
-@TypeConverters(
-    CompanyConverter::class
-)
+@TypeConverters(CompanyConverter::class)
 abstract class RoomDataSource : RoomDatabase() {
     abstract val travelDao: TravelDao?
     companion object {
