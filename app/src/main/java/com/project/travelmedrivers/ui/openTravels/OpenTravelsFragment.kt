@@ -108,7 +108,8 @@ class OpenTravelsFragment : Fragment() {
         // Set up a PlaceSelectionListener to handle the response.
 
         // Start the autocomplete intent.
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields).setCountries(
+            mutableListOf("IL"))
             .build(getApplicationContext())
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
     }
