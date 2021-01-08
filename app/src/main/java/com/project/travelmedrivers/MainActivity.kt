@@ -1,5 +1,6 @@
 package com.project.travelmedrivers
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -21,6 +22,7 @@ import com.project.travelmedrivers.ui.MainViewModel
 class MainActivity : AppCompatActivity() {
     lateinit var travelViewModel: MainViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var markerNewTravel: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dashboard)
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         travelViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        markerNewTravel = getSharedPreferences("markerNewTravel", MODE_PRIVATE)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)

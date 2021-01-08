@@ -1,11 +1,14 @@
 package com.project.travelmedrivers.ui.openTravels
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.R
@@ -16,13 +19,13 @@ import com.project.travelmedrivers.utils.Util
 
 class OpenTravelArrayAdapter(
     var travelList: List<Travel?>,
-    var viewModel: MainViewModel
+    var viewModel: MainViewModel, var markerNewTravel: SharedPreferences
 ) :
     RecyclerView.Adapter<OpenTravelArrayAdapter.ViewHolder>() {
     //All methods in this adapter are required for a bare minimum recyclerview adapter
     // get the size of the list
     override fun getItemCount(): Int {
-        return travelList?.size ?: 0
+        return travelList.size ?: 0
     }
 
     // specify the row layout file and click for each row
@@ -33,17 +36,21 @@ class OpenTravelArrayAdapter(
     }
 
     // load data in each row element
-    @SuppressLint("RestrictedApi")
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @SuppressLint("RestrictedApi", "CommitPrefEdits", "WrongConstant")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
         val source = holder.source
         val destination = holder.destination
         val date = holder.date
         val passenger = holder.passenger
+        val newTravel = holder.tvNewTravel
         holder.travel = travelList[listPosition]!!
         source.text = travelList[listPosition]!!.sourceAdders
         destination.text = travelList[listPosition]!!.destinationAddress[0]
         date.text = travelList[listPosition]!!.departureDate
         passenger.text = travelList[listPosition]!!.passengers.toString()
+        if (markerNewTravel.getBoolean(holder.travel.id, false))
+            newTravel.visibility = View.VISIBLE
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -53,6 +60,7 @@ class OpenTravelArrayAdapter(
         var date: TextView
         var passenger: TextView
         var bSendOffer: Button
+        var tvNewTravel: TextView
         lateinit var travel: Travel
 
         init {
@@ -71,6 +79,7 @@ class OpenTravelArrayAdapter(
                 }
                 viewModel.updateTravel(this.travel)
             }
+            tvNewTravel = itemView.findViewById(R.id.tvNewTravel)
         }
 
         override fun onClick(v: View?) {

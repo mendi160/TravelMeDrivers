@@ -2,7 +2,9 @@ package com.project.travelmedrivers.ui.openTravels
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,13 +29,15 @@ import com.project.travelmedrivers.ui.MainViewModel
 
 class OpenTravelsFragment : Fragment() {
     private val AUTOCOMPLETE_REQUEST_CODE = 1
-    lateinit var rvOpenTravels: RecyclerView
-    lateinit var arrayAdapter: OpenTravelArrayAdapter
-    lateinit var etLocation: EditText
-    lateinit var editDistance: EditText
-    lateinit var bFilter: Button
+    private lateinit var rvOpenTravels: RecyclerView
+    private lateinit var arrayAdapter: OpenTravelArrayAdapter
+    private lateinit var etLocation: EditText
+    private lateinit var editDistance: EditText
+    private lateinit var bFilter: Button
     private var openTravelList = mutableListOf<Travel>()
-    lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: MainViewModel
+    private lateinit var markerNewTravel: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,11 +46,14 @@ class OpenTravelsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_open_travels, container, false)
     }
 
-    @SuppressLint("FragmentLiveDataObserve")
+    @SuppressLint("FragmentLiveDataObserve", "UseRequireInsteadOfGet", "CommitPrefEdits")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = activity?.let { ViewModelProviders.of(it).get(MainViewModel::class.java) }!!
-        arrayAdapter = OpenTravelArrayAdapter(openTravelList, viewModel)
+        markerNewTravel = this.activity
+            ?.getSharedPreferences("markerNewTravel", Context.MODE_PRIVATE)!!
+        editor = markerNewTravel.edit()
+        arrayAdapter = OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel!!)
         etLocation = view.findViewById<EditText>(R.id.etLocation)
         editDistance = view.findViewById<EditText>(R.id.etDistance)
         bFilter = view.findViewById(R.id.bFilter)
@@ -63,7 +70,8 @@ class OpenTravelsFragment : Fragment() {
                 while (t.isAlive);
                 rvOpenTravels.adapter = arrayAdapter
             } else {
-                rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList, viewModel)
+                rvOpenTravels.adapter =
+                    OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel!!)
             }
         }
         etLocation.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) autocomplete() }
@@ -76,15 +84,17 @@ class OpenTravelsFragment : Fragment() {
         }
         viewModel.openTravelsFragment?.observe(this, {
             if (it?.size != 0) {
-
                 openTravelList = it as MutableList<Travel>
-                rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList, viewModel)
+                rvOpenTravels.adapter =
+                    OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel!!)
+                for (travel in openTravelList) {
+                    if (!markerNewTravel.contains(travel.id)) {
+                        editor.putBoolean(travel.id, true)
+                        editor.apply()
+                    }
+                }
             }
-
-
         })
-
-
     }
 
     @SuppressLint("RestrictedApi")
@@ -98,7 +108,7 @@ class OpenTravelsFragment : Fragment() {
         // Set up a PlaceSelectionListener to handle the response.
 
         // Start the autocomplete intent.
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
             .build(getApplicationContext())
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
     }
@@ -129,4 +139,12 @@ class OpenTravelsFragment : Fragment() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+    override fun onStop() {
+        super.onStop()
+        for (map in markerNewTravel.all) {
+            editor.putBoolean(map.key, false)
+            editor.apply()
+        }
+ }
 }
