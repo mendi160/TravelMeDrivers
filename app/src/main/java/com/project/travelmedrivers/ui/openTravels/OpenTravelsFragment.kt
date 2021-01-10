@@ -108,9 +108,11 @@ class OpenTravelsFragment : Fragment() {
         // Set up a PlaceSelectionListener to handle the response.
 
         // Start the autocomplete intent.
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields).setCountries(
-            mutableListOf("IL"))
-            .build(getApplicationContext())
+        val intent =
+            Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields).setCountries(
+                mutableListOf("IL")
+            )
+                .build(getApplicationContext())
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
     }
 
@@ -141,11 +143,12 @@ class OpenTravelsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         for (map in markerNewTravel.all) {
             editor.putBoolean(map.key, false)
             editor.apply()
         }
- }
+        Log.i("yyyyy","yyyy")
+    }
 }

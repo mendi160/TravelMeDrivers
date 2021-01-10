@@ -18,12 +18,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.TravelMeDrivers.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.TravelMeDrivers.NoActionBar"></activity>
 
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="TravelMe.TravelAdded" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

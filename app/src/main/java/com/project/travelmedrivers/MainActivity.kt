@@ -1,5 +1,7 @@
 package com.project.travelmedrivers
 
+import android.content.Context
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
@@ -17,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.project.travelmedrivers.ui.MainViewModel
+import com.project.travelmedrivers.ui.TravelBroadcastReceiver
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        registerReceiver(TravelBroadcastReceiver(), IntentFilter("TravelMe.TravelAdded"))
 
     }
 
@@ -54,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+        getSystemService(Context.NOTIFICATION_SERVICE)
     }
 
     override fun onSupportNavigateUp(): Boolean {

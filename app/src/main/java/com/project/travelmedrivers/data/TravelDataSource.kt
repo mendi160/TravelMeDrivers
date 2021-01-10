@@ -39,7 +39,7 @@ class TravelDataSource private constructor() : ITravelDataSource {
                             val travel = travels.getValue(Travel::class.java)
                             if (travel != null) {
                                 referenceMap[travel.id] = travels.ref
-                                travelsList.add(travel)
+                                travelsList.add(0,travel)
                             }
                         }
                     }
