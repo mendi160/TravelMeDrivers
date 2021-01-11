@@ -143,8 +143,8 @@ class OpenTravelsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         for (map in markerNewTravel.all) {
             editor.putBoolean(map.key, false)
             editor.apply()

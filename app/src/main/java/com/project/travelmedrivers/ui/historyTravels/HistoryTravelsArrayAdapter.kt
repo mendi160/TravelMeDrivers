@@ -33,17 +33,22 @@ class HistoryTravelsArrayAdapter(
     }
 
     // load data in each row element
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
         val source = holder.source
         val destination = holder.destination
         val date = holder.departureDate
-        val passenger = holder.returnDate
+        val returnDate = holder.returnDate
+        val bPay = holder.bPay
         holder.travel = travelList[listPosition]!!
         source.text = travelList[listPosition]!!.sourceAdders
         destination.text = travelList[listPosition]!!.destinationAddress[0]
         date.text = travelList[listPosition]!!.departureDate
-        passenger.text = travelList[listPosition]!!.passengers.toString()
+        returnDate.text = travelList[listPosition]!!.returnDate.toString()
+        if (travelList[listPosition]!!.status == Status.PAID) {
+            bPay.isEnabled = false
+            bPay.text="paid up"
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
