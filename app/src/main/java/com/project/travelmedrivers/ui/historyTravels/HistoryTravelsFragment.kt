@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.ui.MainViewModel
+import com.project.travelmedrivers.utils.Status
 import com.project.travelmedrivers.utils.Util
 
 class HistoryTravelsFragment : Fragment() {
@@ -27,6 +29,7 @@ class HistoryTravelsFragment : Fragment() {
     lateinit var dpFrom: EditText
     lateinit var dpTo: EditText
     lateinit var bFilter: Button
+    lateinit var swPaidOnly: Switch
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,12 +45,30 @@ class HistoryTravelsFragment : Fragment() {
         dpFrom = view.findViewById(R.id.dpFrom)
         dpTo = view.findViewById(R.id.dpTo)
         bFilter = view.findViewById(R.id.bFilter)
+        swPaidOnly = view.findViewById(R.id.swPaidOnly)
+        swPaidOnly.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                filteredList = closedTravelList.filter { it -> it.status == Status.PAID }
+                rvClosedTravels.adapter = HistoryTravelsArrayAdapter(filteredList, viewModel)
+            } else
+                rvClosedTravels.adapter = HistoryTravelsArrayAdapter(closedTravelList, viewModel)
+        }
         bFilter.setOnClickListener {
+
             filteredList = closedTravelList.filter { it ->
-                Util.compareStringsOfDate(
-                    it.returnDate,
-                    dpFrom.text.toString()
-                ) && Util.compareStringsOfDate(dpTo.text.toString(), it.returnDate)
+                if (swPaidOnly.isChecked)
+                    (Util.compareStringsOfDate(
+                        it.returnDate,
+                        dpFrom.text.toString()
+                    ) && Util.compareStringsOfDate(
+                        dpTo.text.toString(),
+                        it.returnDate
+                    ) && it.status == Status.PAID)
+                else
+                    (Util.compareStringsOfDate(
+                        it.returnDate,
+                        dpFrom.text.toString()
+                    ) && Util.compareStringsOfDate(dpTo.text.toString(), it.returnDate))
             }
             rvClosedTravels.adapter = HistoryTravelsArrayAdapter(filteredList, viewModel)
         }

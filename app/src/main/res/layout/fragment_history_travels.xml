@@ -13,16 +13,22 @@
 
         <EditText
             android:id="@+id/dpFrom"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="Enter location" />
+            android:hint="From" />
 
         <EditText
             android:id="@+id/dpTo"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="Enter km" />
+            android:hint="Until" />
 
+        <Switch
+            android:id="@+id/swPaidOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paid only"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
         <Button
             android:id="@+id/bFilter"
             android:layout_width="wrap_content"
