@@ -1,11 +1,10 @@
 package com.project.travelmedrivers
 
-import android.content.Context
 import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -51,23 +50,21 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         registerReceiver(TravelBroadcastReceiver(), IntentFilter("TravelMe.TravelAdded"))
-
+//        logout.setOnMenuItemClickListener {
+//            val editor=sharedPreferences.edit()
+//            editor.putBoolean(FirebaseAuth.getInstance().currentUser.uid,false)
+//            editor.apply()
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
-        getSystemService(Context.NOTIFICATION_SERVICE)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-    fun StatusChanged(view: View) {
-
-    }
-
 }
