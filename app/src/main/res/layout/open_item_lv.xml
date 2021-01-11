@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    tools:actionBarNavMode="standard">
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -21,8 +25,8 @@
             android:layout_row="0"
             android:layout_column="0"
             android:layout_gravity="center"
-            android:text="Source"
-            android:textSize="16dp"
+            android:text="@string/source"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -32,9 +36,11 @@
             android:layout_row="0"
             android:layout_column="1"
             android:layout_gravity="center"
-            android:text="Destination"
-            android:textSize="16dp"
-            android:textStyle="bold" />
+            android:layout_marginStart="10dp"
+            android:text="@string/destination"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/textView4"
@@ -42,10 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="2"
+            android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:text="Date"
-            android:textSize="16dp"
-            android:textStyle="bold" />
+            android:text="@string/departureDate"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,8 +61,8 @@
             android:layout_row="0"
             android:layout_column="3"
             android:layout_gravity="center"
-            android:text="Passenger"
-            android:textSize="16dp"
+            android:text="@string/passenger"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
 
@@ -65,8 +73,10 @@
             android:layout_row="1"
             android:layout_column="0"
             android:layout_gravity="center"
+            android:layout_marginStart="10dp"
             android:hint="@string/sourceAddress"
-            android:maxWidth="75dp" />
+            android:maxWidth="75dp"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/tvDestination"
@@ -74,19 +84,23 @@
             android:layout_height="wrap_content"
             android:layout_row="1"
             android:layout_column="1"
+            android:layout_marginStart="10dp"
             android:layout_gravity="center"
             android:hint="@string/destinationAddress"
 
-            android:maxWidth="75dp" />
+            android:maxWidth="75dp"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_row="1"
             android:layout_column="2"
             android:layout_gravity="center"
-            android:hint="@string/date" />
+            android:hint="@string/date"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/tvPassenger"
@@ -102,7 +116,7 @@
             android:layout_column="0"
             android:layout_columnSpan="2"
             android:layout_gravity="center"
-            android:text="Send offer"
+            android:text="@string/send_offer"
             app:backgroundTint="#4CAF50" />
 
         <TextView
@@ -112,11 +126,10 @@
             android:layout_row="2"
             android:layout_column="3"
             android:layout_gravity="center"
-            android:text="New travel"
+            android:text="@string/new_travel"
             android:textColor="#F44336"
             android:textSize="20sp"
             android:visibility="invisible" />
 
     </GridLayout>
-
-</LinearLayout>
+    </androidx.cardview.widget.CardView>

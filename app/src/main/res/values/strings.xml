@@ -14,4 +14,20 @@
     <string name="sourceAddress">Source</string>
     <string name="destinationAddress">Destination</string>
     <string name="date">Date</string>
+    <string name="source">Source</string>
+    <string name="destination">Destination</string>
+    <string name="departureDate">Date</string>
+    <string name="passenger">Passenger</string>
+    <string name="send_offer">Send offer</string>
+    <string name="new_travel">New travel</string>
+    <string name="application_title">Travel Me Drivers</string>
+    <string name="departure_date">Departure Date</string>
+    <string name="return_date">Return Date</string>
+    <string name="from_date">From</string>
+    <string name="until_date">Until</string>
+    <string name="pay_button">Pay</string>
+    <string name="filter_button">Filter</string>
+    <string name="paid_only">Paid only</string>
+    <string name="enter_km">Enter km</string>
+    <string name="enter_location">Enter location</string>
 </resources>

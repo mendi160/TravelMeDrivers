@@ -12,26 +12,28 @@
         android:orientation="horizontal">
 
         <EditText
-            android:maxWidth="200dp"
             android:id="@+id/etLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:hint="Enter location"
+            android:hint="@string/enter_location"
+            android:maxWidth="200dp"
            />
 
         <EditText
             android:id="@+id/etDistance"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:hint="Enter km"
+            android:hint="@string/enter_km"
             android:inputType="number" />
 
         <Button
             android:id="@+id/bFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter" />
+            android:layout_marginStart="10dp"
+            android:text="@string/filter_button"
+            android:layout_marginLeft="10dp" />
     </LinearLayout>
 
 

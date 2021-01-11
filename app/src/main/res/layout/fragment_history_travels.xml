@@ -15,25 +15,26 @@
             android:id="@+id/dpFrom"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="From" />
+            android:hint="@string/from_date" />
 
         <EditText
             android:id="@+id/dpTo"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="Until" />
+            android:hint="@string/until_date" />
 
         <Switch
             android:id="@+id/swPaidOnly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Paid only"
+            android:text="@string/paid_only"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
+
         <Button
             android:id="@+id/bFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter" />
+            android:text="@string/filter_button" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
