@@ -3,7 +3,6 @@ package com.project.travelmedrivers.ui.openTravels
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,7 @@ class OpenTravelArrayAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.open_item_lv, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, parent)
     }
 
     // load data in each row element
@@ -42,6 +41,9 @@ class OpenTravelArrayAdapter(
         val source = holder.source
         val destination = holder.destination
         val date = holder.date
+        val email = holder.email
+        val phone = holder.phone
+        val name = holder.name
         val passenger = holder.passenger
         val newTravel = holder.tvNewTravel
         holder.travel = travelList[listPosition]!!
@@ -49,6 +51,9 @@ class OpenTravelArrayAdapter(
         destination.text = travelList[listPosition]!!.destinationAddress[0]
         date.text = travelList[listPosition]!!.departureDate
         passenger.text = travelList[listPosition]!!.passengers.toString()
+        email.text = travelList[listPosition]!!.email
+        phone.text = "0" + travelList[listPosition]!!.phoneNumber.toString()
+        name.text = travelList[listPosition]!!.name
         if (markerNewTravel.getBoolean(holder.travel.id, false))
             newTravel.visibility = View.VISIBLE
         if (travelList[listPosition]!!.serviceProvider.containsKey(FirebaseAuth.getInstance().currentUser!!.email?.let {
@@ -57,12 +62,15 @@ class OpenTravelArrayAdapter(
             holder.cbIsOfferSent.isChecked = true
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var source: TextView
         var destination: TextView
         var date: TextView
         var passenger: TextView
+        var email: TextView
+        var phone: TextView
+        var name: TextView
         var bSendOffer: Button
         var tvNewTravel: TextView
         var cbIsOfferSent: CheckBox
@@ -74,8 +82,13 @@ class OpenTravelArrayAdapter(
             destination = itemView.findViewById(R.id.tvDestination) as TextView
             date = itemView.findViewById(R.id.tvDate) as TextView
             passenger = itemView.findViewById(R.id.tvPassenger)
+            email = itemView.findViewById(R.id.tvEmail)
+            phone = itemView.findViewById(R.id.tvPhoneNumber)
+            name = itemView.findViewById(R.id.tvName)
+
             bSendOffer = itemView.findViewById(R.id.bSendOffer)
             bSendOffer.setOnClickListener {
+
                 val key = FirebaseAuth.getInstance().currentUser?.email?.let { it1 ->
                     Util.emailToKey(it1)
                 }
@@ -89,12 +102,32 @@ class OpenTravelArrayAdapter(
         }
 
         override fun onClick(v: View?) {
-            Log.i("click", "Click on linear layout")
+            if (email.visibility==View.GONE) {
+                email.visibility = View.VISIBLE
+                phone.visibility = View.VISIBLE
+                name.visibility = View.VISIBLE
+                itemView.findViewById<TextView>(R.id.tvEmailLable).visibility = View.VISIBLE
+                itemView.findViewById<TextView>(R.id.tvPhoneNumberLable).visibility = View.VISIBLE
+                itemView.findViewById<TextView>(R.id.tvNameLable).visibility = View.VISIBLE
+            }
+            else  {
+
+                email.visibility = View.GONE
+                phone.visibility = View.GONE
+                name.visibility = View.GONE
+                itemView.findViewById<TextView>(R.id.tvEmailLable).visibility = View.GONE
+                itemView.findViewById<TextView>(R.id.tvPhoneNumberLable).visibility = View.GONE
+                itemView.findViewById<TextView>(R.id.tvNameLable).visibility = View.GONE
+            }
+
+
 
         }
 
     }
+
 }
+
 
 
 

@@ -21,7 +21,7 @@
         android:columnCount="4"
         android:orientation="horizontal"
         android:rotationX="0"
-        android:rowCount="3">
+        android:rowCount="7">
 
         <TextView
             android:id="@+id/textView2"
@@ -154,6 +154,60 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="invisible" />
+<!--        hidden elemets-->
+
+        <TextView
+            android:id="@+id/tvPhoneNumberLable"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:visibility="gone"
+            android:text="Phone Number"
+            android:textSize="22dp"/>
+
+        <TextView
+            android:id="@+id/tvNameLable"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:text="Name"
+            android:visibility="gone"
+            android:textSize="22dp"/>
+        <TextView
+            android:id="@+id/tvEmailLable"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:text="Email"
+            android:visibility="gone"
+            android:textSize="22dp"/>
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_row="4"
+            android:textSize="22dp"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:text="--------"
+            android:visibility="gone"
+            android:autoLink="all"/>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:text="--------"
+            android:textSize="22dp"
+            android:visibility="gone"
+            android:autoLink="all"/>
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_row="6"
+            android:layout_column="1"
+            android:text="--------"
+            android:layout_columnSpan="2"
+            android:textSize="22dp"
+            android:visibility="gone"
+            android:autoLink="phone"/>
+
+
 
     </GridLayout>
 </androidx.cardview.widget.CardView>
