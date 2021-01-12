@@ -106,18 +106,18 @@ class OpenTravelArrayAdapter(
                 email.visibility = View.VISIBLE
                 phone.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
-                itemView.findViewById<TextView>(R.id.tvEmailLable).visibility = View.VISIBLE
-                itemView.findViewById<TextView>(R.id.tvPhoneNumberLable).visibility = View.VISIBLE
-                itemView.findViewById<TextView>(R.id.tvNameLable).visibility = View.VISIBLE
+                itemView.findViewById<TextView>(R.id.tvEmailLabel).visibility = View.VISIBLE
+                itemView.findViewById<TextView>(R.id.tvPhoneNumberLabel).visibility = View.VISIBLE
+                itemView.findViewById<TextView>(R.id.tvNameLabel).visibility = View.VISIBLE
             }
             else  {
 
                 email.visibility = View.GONE
                 phone.visibility = View.GONE
                 name.visibility = View.GONE
-                itemView.findViewById<TextView>(R.id.tvEmailLable).visibility = View.GONE
-                itemView.findViewById<TextView>(R.id.tvPhoneNumberLable).visibility = View.GONE
-                itemView.findViewById<TextView>(R.id.tvNameLable).visibility = View.GONE
+                itemView.findViewById<TextView>(R.id.tvEmailLabel).visibility = View.GONE
+                itemView.findViewById<TextView>(R.id.tvPhoneNumberLabel).visibility = View.GONE
+                itemView.findViewById<TextView>(R.id.tvNameLabel).visibility = View.GONE
             }
 
 

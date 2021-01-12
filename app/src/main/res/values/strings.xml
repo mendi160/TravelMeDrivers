@@ -31,4 +31,7 @@
     <string name="enter_km">Enter km</string>
     <string name="enter_location">Enter location</string>
     <string name="offer_sent">Offer Sent</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email">Email</string>
 </resources>
