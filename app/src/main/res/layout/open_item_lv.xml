@@ -4,6 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:rotation="0"
+    android:rotationX="-4"
+    android:rotationY="0"
+    android:scaleX="1"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
@@ -16,6 +20,7 @@
         android:layout_height="wrap_content"
         android:columnCount="4"
         android:orientation="horizontal"
+        android:rotationX="0"
         android:rowCount="3">
 
         <TextView
@@ -37,10 +42,10 @@
             android:layout_column="1"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:text="@string/destination"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView4"
@@ -48,12 +53,12 @@
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="2"
-            android:layout_marginStart="10dp"
             android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:text="@string/departureDate"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,9 +79,9 @@
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:hint="@string/sourceAddress"
-            android:maxWidth="75dp"
-            android:layout_marginLeft="10dp" />
+            android:maxWidth="75dp" />
 
         <TextView
             android:id="@+id/tvDestination"
@@ -84,23 +89,23 @@
             android:layout_height="wrap_content"
             android:layout_row="1"
             android:layout_column="1"
-            android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:hint="@string/destinationAddress"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
 
-            android:maxWidth="75dp"
-            android:layout_marginLeft="10dp" />
+            android:hint="@string/destinationAddress"
+            android:maxWidth="75dp" />
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_row="1"
             android:layout_column="2"
             android:layout_gravity="center"
-            android:hint="@string/date"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/date" />
 
         <TextView
             android:id="@+id/tvPassenger"
@@ -115,9 +120,21 @@
             android:layout_row="2"
             android:layout_column="0"
             android:layout_columnSpan="2"
-            android:layout_gravity="center"
             android:text="@string/send_offer"
             app:backgroundTint="#4CAF50" />
+
+        <CheckBox
+            android:id="@+id/cbIsOfferSent"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:enabled="false"
+            android:text="@string/offer_sent"
+
+
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/tvNewTravel"
@@ -125,11 +142,18 @@
             android:layout_height="wrap_content"
             android:layout_row="2"
             android:layout_column="3"
-            android:layout_gravity="center"
+            android:layout_marginEnd="5sp"
+            android:layout_marginRight="5sp"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:rotation="-21"
+            android:rotationX="46"
+            android:rotationY="6"
             android:text="@string/new_travel"
             android:textColor="#F44336"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:visibility="invisible" />
 
     </GridLayout>
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

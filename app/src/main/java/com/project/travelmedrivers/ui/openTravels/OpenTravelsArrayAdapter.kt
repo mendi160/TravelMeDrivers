@@ -51,6 +51,10 @@ class OpenTravelArrayAdapter(
         passenger.text = travelList[listPosition]!!.passengers.toString()
         if (markerNewTravel.getBoolean(holder.travel.id, false))
             newTravel.visibility = View.VISIBLE
+        if (travelList[listPosition]!!.serviceProvider.containsKey(FirebaseAuth.getInstance().currentUser!!.email?.let {
+                Util.emailToKey(it)
+            }))
+            holder.cbIsOfferSent.isChecked = true
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -61,6 +65,7 @@ class OpenTravelArrayAdapter(
         var passenger: TextView
         var bSendOffer: Button
         var tvNewTravel: TextView
+        var cbIsOfferSent: CheckBox
         lateinit var travel: Travel
 
         init {
@@ -80,6 +85,7 @@ class OpenTravelArrayAdapter(
                 viewModel.updateTravel(this.travel)
             }
             tvNewTravel = itemView.findViewById(R.id.tvNewTravel)
+            cbIsOfferSent = itemView.findViewById(R.id.cbIsOfferSent)
         }
 
         override fun onClick(v: View?) {
