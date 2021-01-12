@@ -11,6 +11,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
+
+
         <EditText
             android:id="@+id/etLocation"
             android:layout_width="wrap_content"
@@ -35,6 +38,13 @@
             android:text="@string/filter_button"
             android:layout_marginLeft="10dp" />
     </LinearLayout>
+    <ProgressBar
+        android:id="@+id/pbLoading"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
