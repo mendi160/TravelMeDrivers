@@ -12,12 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
+import com.google.android.datatransport.runtime.time.WallTime
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -34,6 +36,7 @@ class OpenTravelsFragment : Fragment() {
     private lateinit var etLocation: EditText
     private lateinit var editDistance: EditText
     private lateinit var bFilter: Button
+    private lateinit var pbLoading: ProgressBar
     private var openTravelList = mutableListOf<Travel>()
     private lateinit var viewModel: MainViewModel
     private lateinit var markerNewTravel: SharedPreferences
@@ -53,11 +56,13 @@ class OpenTravelsFragment : Fragment() {
         markerNewTravel = this.activity
             ?.getSharedPreferences("markerNewTravel", Context.MODE_PRIVATE)!!
         editor = markerNewTravel.edit()
+        pbLoading = view.findViewById(R.id.pbLoading)
         arrayAdapter = OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel!!)
         etLocation = view.findViewById<EditText>(R.id.etLocation)
         editDistance = view.findViewById<EditText>(R.id.etDistance)
         bFilter = view.findViewById(R.id.bFilter)
         bFilter.setOnClickListener {
+            pbLoading.visibility = View.VISIBLE
             if (etLocation.text.toString() != "" && editDistance.text.toString() != "") {
                 val t = Thread {
                     arrayAdapter.travelList = viewModel.relevantTravels(
@@ -65,14 +70,22 @@ class OpenTravelsFragment : Fragment() {
                         etLocation.text.toString(),
                         requireActivity().applicationContext
                     )
+
+                    pbLoading.visibility = View.GONE
+
                 }
                 t.start()
+
+
                 while (t.isAlive);
+
+
                 rvOpenTravels.adapter = arrayAdapter
             } else {
                 rvOpenTravels.adapter =
                     OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel!!)
             }
+
         }
         etLocation.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) autocomplete() }
         rvOpenTravels = view.findViewById(R.id.rvOpenTravel)
@@ -92,6 +105,7 @@ class OpenTravelsFragment : Fragment() {
                         editor.putBoolean(travel.id, true)
                         editor.apply()
                     }
+                    pbLoading.visibility = View.GONE
                 }
             }
         })
@@ -149,6 +163,6 @@ class OpenTravelsFragment : Fragment() {
             editor.putBoolean(map.key, false)
             editor.apply()
         }
-        Log.i("yyyyy","yyyy")
+        Log.i("yyyyy", "yyyy")
     }
 }

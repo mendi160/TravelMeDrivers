@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:rotation="0"
-    android:rotationX="-4"
+    android:rotationX="0"
     android:rotationY="0"
     android:scaleX="1"
     app:cardBackgroundColor="@color/white"
@@ -130,11 +130,11 @@
             android:layout_columnSpan="2"
             android:layout_gravity="center"
             android:layout_marginStart="30dp"
+            android:layout_marginLeft="10dp"
             android:enabled="false"
-            android:text="@string/offer_sent"
 
 
-            android:layout_marginLeft="10dp" />
+            android:text="@string/offer_sent" />
 
         <TextView
             android:id="@+id/tvNewTravel"

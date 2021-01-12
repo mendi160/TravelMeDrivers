@@ -9,7 +9,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Open Travels</string>
-    <string name="menu_gallery">Running Travels</string>
+    <string name="menu_gallery">My Travels</string>
     <string name="menu_slideshow">History Travels</string>
     <string name="sourceAddress">Source</string>
     <string name="destinationAddress">Destination</string>
