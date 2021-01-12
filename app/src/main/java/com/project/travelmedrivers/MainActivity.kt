@@ -4,7 +4,6 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -50,11 +49,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         registerReceiver(TravelBroadcastReceiver(), IntentFilter("TravelMe.TravelAdded"))
-//        logout.setOnMenuItemClickListener {
-//            val editor=sharedPreferences.edit()
-//            editor.putBoolean(FirebaseAuth.getInstance().currentUser.uid,false)
-//            editor.apply()
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
