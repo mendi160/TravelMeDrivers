@@ -115,7 +115,7 @@ class OpenTravelArrayAdapter(
             phone = itemView.findViewById(R.id.bPhoneCall)
             phone.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL).apply {
-                    data = Uri.parse("tel:0${travel.phoneNumber}")
+                    data = Uri.parse("tel:${travel.phoneNumber}")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
                 if (intent.resolveActivity(getApplicationContext().packageManager) != null) {
