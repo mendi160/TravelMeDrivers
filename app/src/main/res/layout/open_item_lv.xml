@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:columnCount="4"
         android:orientation="horizontal"
-        android:rowCount="7">
+        android:rowCount="5">
 
         <TextView
             android:id="@+id/textView2"
@@ -164,68 +164,36 @@
 
         <!--        hidden elements-->
 
-        <TextView
-            android:id="@+id/tvPhoneNumberLabel"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bSendEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_row="4"
             android:layout_column="0"
-            android:layout_columnSpan="2"
-            android:gravity="center"
-            android:text="@string/phone_number"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:layout_margin="10dp"
+            android:src="@android:drawable/ic_dialog_email" />
 
-        <TextView
-            android:id="@+id/tvNameLabel"
-            android:layout_row="6"
-            android:layout_column="0"
-            android:layout_columnSpan="2"
-            android:text="@string/name"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:visibility="gone" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bPhoneCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:layout_margin="10dp"
+            android:src="@drawable/fui_ic_phone_white_24dp" />
 
-        <TextView
-            android:id="@+id/tvEmailLabel"
-            android:layout_row="5"
-            android:layout_column="0"
-            android:layout_columnSpan="2"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textSize="15sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tvPhoneNumber"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bWhatsApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_row="4"
             android:layout_column="2"
-            android:layout_columnSpan="2"
-            android:autoLink="all"
-            android:gravity="center"
-            android:text="--------"
-            android:textSize="15sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_row="5"
-            android:layout_column="2"
-            android:layout_columnSpan="2"
-            android:autoLink="all"
-            android:gravity="center"
-            android:text="--------"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:layout_margin="10dp" />
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_row="6"
-            android:layout_column="2"
-            android:layout_columnSpan="2"
-            android:autoLink="phone"
-            android:gravity="center"
-            android:text="--------"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:layout_row="4"
+            android:layout_column="3" />
 
     </GridLayout>
 </androidx.cardview.widget.CardView>
