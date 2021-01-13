@@ -128,14 +128,10 @@ class OpenTravelArrayAdapter(
             whatsApp = itemView.findViewById(R.id.bWhatsApp)
             whatsApp.setOnClickListener {
 
-                val sendIntent = Intent(Intent.ACTION_SEND).apply {
-
-                    putExtra(Intent.EXTRA_TEXT, "Hello")
+                val sendIntent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse ( "https://wa.me/972${travel.phoneNumber}/?text=" + "Hi i want to offer you travel" )
                     setPackage("com.whatsapp");
-                    type = "text/plain"
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-
                 }
                 if (sendIntent.resolveActivity(getApplicationContext().packageManager) != null) {
                     getApplicationContext().startActivity(sendIntent)
