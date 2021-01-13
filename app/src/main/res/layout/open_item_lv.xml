@@ -4,11 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:rotation="0"
-    android:rotationX="0"
-    android:rotationY="0"
-    android:scaleX="1"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/quantum_lightgreen50"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
@@ -153,7 +149,20 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="invisible" />
-        <!--        hidden elemets-->
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_row="2"
+            android:layout_column="3"
+            android:layout_gravity="bottom|right"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            app:srcCompat="@drawable/expand_icon" />
+
+        <!--        hidden elements-->
 
         <TextView
             android:id="@+id/tvPhoneNumberLabel"
@@ -217,7 +226,6 @@
             android:text="--------"
             android:textSize="15sp"
             android:visibility="gone" />
-
 
     </GridLayout>
 </androidx.cardview.widget.CardView>

@@ -109,6 +109,7 @@ class OpenTravelArrayAdapter(
                 itemView.findViewById<TextView>(R.id.tvEmailLabel).visibility = View.VISIBLE
                 itemView.findViewById<TextView>(R.id.tvPhoneNumberLabel).visibility = View.VISIBLE
                 itemView.findViewById<TextView>(R.id.tvNameLabel).visibility = View.VISIBLE
+                itemView.findViewById<ImageView>(R.id.imageView).rotation = 180F
             }
             else  {
 
@@ -118,6 +119,7 @@ class OpenTravelArrayAdapter(
                 itemView.findViewById<TextView>(R.id.tvEmailLabel).visibility = View.GONE
                 itemView.findViewById<TextView>(R.id.tvPhoneNumberLabel).visibility = View.GONE
                 itemView.findViewById<TextView>(R.id.tvNameLabel).visibility = View.GONE
+                itemView.findViewById<ImageView>(R.id.imageView).rotation = 0F
             }
 
 

@@ -19,7 +19,7 @@ class RunningTravelArrayAdapter(
     //All methods in this adapter are required for a bare minimum recyclerview adapter
     // get the size of the list
     override fun getItemCount(): Int {
-        return travelList?.size ?: 0
+        return travelList.size ?: 0
     }
 
     // specify the row layout file and click for each row
@@ -35,11 +35,13 @@ class RunningTravelArrayAdapter(
         val destination = holder.destination
         val departureDate = holder.departureDate
         val returnDate = holder.returnDate
+        val status = holder.status
         holder.travel = travelList[listPosition]
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
         departureDate.text = travelList[listPosition].departureDate
         returnDate.text = travelList[listPosition].returnDate
+        status.text = travelList[listPosition].status.name
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -48,6 +50,7 @@ class RunningTravelArrayAdapter(
         var destination: TextView
         var departureDate: TextView
         var returnDate: TextView
+        var status: TextView
         lateinit var travel: Travel
 
         init {
@@ -56,6 +59,7 @@ class RunningTravelArrayAdapter(
             destination = itemView.findViewById(R.id.tvDestinationRunning) as TextView
             departureDate = itemView.findViewById(R.id.tvDepartureDateRunning) as TextView
             returnDate = itemView.findViewById(R.id.tvReturnDateRunning) as TextView
+            status = itemView.findViewById(R.id.tvStatus) as TextView
         }
 
         override fun onClick(v: View?) {

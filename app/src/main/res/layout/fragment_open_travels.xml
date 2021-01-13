@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/quantum_googblue50"
     android:orientation="vertical"
     tools:context=".ui.openTravels.OpenTravelsFragment">
 
@@ -12,22 +13,21 @@
         android:orientation="horizontal">
 
 
-
-
         <EditText
             android:id="@+id/etLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
             android:hint="@string/enter_location"
-            android:maxWidth="200dp"
-           />
+            android:textStyle="bold"
+            android:maxWidth="200dp" />
 
         <EditText
             android:id="@+id/etDistance"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_km"
+            android:textStyle="bold"
             android:inputType="number" />
 
         <Button
@@ -35,16 +35,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/filter_button"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:text="@string/filter_button" />
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/pbLoading"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
+        android:layout_gravity="center" />
 
 
     <androidx.recyclerview.widget.RecyclerView

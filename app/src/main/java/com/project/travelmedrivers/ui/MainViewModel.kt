@@ -31,7 +31,7 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
                         FirebaseAuth.getInstance().currentUser!!.email?.let { email ->
                             Util.emailToKey(email)
                         }] == true
-                        && travel.status == Status.RUNNING
+                        && (travel.status == Status.RUNNING || travel.status == Status.RECEIVED)
             })
             openTravelsFragment?.postValue(it?.filter { travel -> travel!!.status == Status.SENT })
         }

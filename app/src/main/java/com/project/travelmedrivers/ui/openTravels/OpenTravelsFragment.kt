@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
-import com.google.android.datatransport.runtime.time.WallTime
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -62,7 +61,6 @@ class OpenTravelsFragment : Fragment() {
         editDistance = view.findViewById<EditText>(R.id.etDistance)
         bFilter = view.findViewById(R.id.bFilter)
         bFilter.setOnClickListener {
-            pbLoading.visibility = View.VISIBLE
             if (etLocation.text.toString() != "" && editDistance.text.toString() != "") {
                 val t = Thread {
                     arrayAdapter.travelList = viewModel.relevantTravels(
@@ -70,16 +68,9 @@ class OpenTravelsFragment : Fragment() {
                         etLocation.text.toString(),
                         requireActivity().applicationContext
                     )
-
-                    pbLoading.visibility = View.GONE
-
                 }
                 t.start()
-
-
                 while (t.isAlive);
-
-
                 rvOpenTravels.adapter = arrayAdapter
             } else {
                 rvOpenTravels.adapter =
