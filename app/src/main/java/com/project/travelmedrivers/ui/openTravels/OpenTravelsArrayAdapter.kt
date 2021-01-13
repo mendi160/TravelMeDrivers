@@ -104,11 +104,11 @@ class OpenTravelArrayAdapter(
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
                 }
-                if (intent.resolveActivity(getApplicationContext().packageManager) != null) {
+                //f (intent.resolveActivity(getApplicationContext().packageManager) != null) {
                     getApplicationContext().startActivity(intent)
-                } else
-                    Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
-                        .show()
+               // } else
+                  //  Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
+                  //      .show()
 
 
             }
@@ -118,11 +118,11 @@ class OpenTravelArrayAdapter(
                     data = Uri.parse("tel:${travel.phoneNumber}")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
-                if (intent.resolveActivity(getApplicationContext().packageManager) != null) {
+                    // if (intent.resolveActivity(getApplicationContext().packageManager) != null) {
                     getApplicationContext().startActivity(intent)
-                } else
-                    Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
-                        .show()
+                //} else
+                   // Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
+                     //   .show()
 
             }
             whatsApp = itemView.findViewById(R.id.bWhatsApp)
