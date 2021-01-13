@@ -129,7 +129,7 @@ class OpenTravelArrayAdapter(
             whatsApp.setOnClickListener {
 
                 val sendIntent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse ( "https://wa.me/972${travel.phoneNumber}/?text=" + "Hi i want to offer you travel" )
+                    data = Uri.parse ( "https://wa.me/${travel.phoneNumber}/?text=" + "Hi i want to offer you travel" )
                     setPackage("com.whatsapp");
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
