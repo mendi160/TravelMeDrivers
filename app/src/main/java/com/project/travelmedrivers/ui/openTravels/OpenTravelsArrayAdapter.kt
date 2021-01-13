@@ -1,7 +1,6 @@
 package com.project.travelmedrivers.ui.openTravels
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.ui.MainViewModel
-import com.project.travelmedrivers.ui.getPackageName
 import com.project.travelmedrivers.utils.Util
 
 
@@ -58,8 +55,8 @@ class OpenTravelArrayAdapter(
         destination.text = travelList[listPosition]!!.destinationAddress[0]
         date.text = travelList[listPosition]!!.departureDate
         passenger.text = travelList[listPosition]!!.passengers.toString()
-      //  email.text = travelList[listPosition]!!.email
-      //  phone.text = "0" + travelList[listPosition]!!.phoneNumber.toString()
+        //  email.text = travelList[listPosition]!!.email
+        //  phone.text = "0" + travelList[listPosition]!!.phoneNumber.toString()
         name.text = travelList[listPosition]!!.name
         if (markerNewTravel.getBoolean(holder.travel.id, false))
             newTravel.visibility = View.VISIBLE
@@ -79,7 +76,7 @@ class OpenTravelArrayAdapter(
         var email: FloatingActionButton
         var phone: FloatingActionButton
         var name: TextView
-        var whatsApp: FloatingActionButton
+        var whatsApp: ImageButton
         var bSendOffer: Button
         var tvNewTravel: TextView
         var cbIsOfferSent: CheckBox
@@ -95,18 +92,58 @@ class OpenTravelArrayAdapter(
             email = itemView.findViewById(R.id.bSendEmail)
             email.setOnClickListener {
 
-                val emailIntent =
-                    Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, travel.email)
-               // emailIntent.data = Uri.parse("mailto:")
-                emailIntent.type="text/plain"
-                emailIntent.`package`="com.whatsapp"
-                emailIntent.flags=Intent.FLAG_ACTIVITY_NEW_TASK
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    type = "*/*"
+                    putExtra(Intent.EXTRA_EMAIL, arrayOf(travel.email))
+                    putExtra(Intent.EXTRA_SUBJECT, "offer")
+                    putExtra(
+                        Intent.EXTRA_TEXT, "Hi,I would like to offer you travel service " +
+                                "for your request from Source address ${travel.sourceAdders} to ${travel.destinationAddress[0]}"
+                    )
+                    data = Uri.parse("mailto:")
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
-                getApplicationContext().startActivity(emailIntent)
+                }
+                if (intent.resolveActivity(getApplicationContext().packageManager) != null) {
+                    getApplicationContext().startActivity(intent)
+                } else
+                    Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
+                        .show()
+
 
             }
             phone = itemView.findViewById(R.id.bPhoneCall)
+            phone.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:0${travel.phoneNumber}")
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+                if (intent.resolveActivity(getApplicationContext().packageManager) != null) {
+                    getApplicationContext().startActivity(intent)
+                } else
+                    Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
+                        .show()
+
+            }
             whatsApp = itemView.findViewById(R.id.bWhatsApp)
+            whatsApp.setOnClickListener {
+
+                val sendIntent = Intent(Intent.ACTION_SEND).apply {
+
+                    putExtra(Intent.EXTRA_TEXT, "Hello")
+                    setPackage("com.whatsapp");
+                    type = "text/plain"
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+
+                }
+                if (sendIntent.resolveActivity(getApplicationContext().packageManager) != null) {
+                    getApplicationContext().startActivity(sendIntent)
+                } else
+                    Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
+                        .show()
+
+            }
             bSendOffer = itemView.findViewById(R.id.bSendOffer)
             bSendOffer.setOnClickListener {
                 val key = FirebaseAuth.getInstance().currentUser?.email?.let { it1 ->
@@ -137,6 +174,7 @@ class OpenTravelArrayAdapter(
             }
         }
     }
+
 }
 
 

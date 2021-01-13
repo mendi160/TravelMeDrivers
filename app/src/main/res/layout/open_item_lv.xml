@@ -182,13 +182,14 @@
             android:layout_margin="10dp"
             android:src="@drawable/fui_ic_phone_white_24dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/bWhatsApp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="59dp"
             android:layout_row="4"
             android:layout_column="2"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:src="@drawable/wa" />
 
         <TextView
             android:id="@+id/tvName"
