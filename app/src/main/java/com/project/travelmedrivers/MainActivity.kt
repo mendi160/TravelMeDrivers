@@ -1,9 +1,11 @@
 package com.project.travelmedrivers
 
+import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.ui.MainViewModel
 import com.project.travelmedrivers.ui.TravelBroadcastReceiver
 
@@ -24,16 +27,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var travelViewModel: MainViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var markerNewTravel: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dashboard)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE)
+
         travelViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         markerNewTravel = getSharedPreferences("markerNewTravel", MODE_PRIVATE)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -60,5 +62,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun logout(view: View) {
+        sharedPreferences.edit().putBoolean(FirebaseAuth.getInstance().currentUser?.uid, false)
+            .apply()
+        finish()
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }
