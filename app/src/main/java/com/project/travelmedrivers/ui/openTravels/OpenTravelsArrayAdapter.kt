@@ -47,18 +47,14 @@ class OpenTravelArrayAdapter(
         val source = holder.source
         val destination = holder.destination
         val date = holder.date
-        val email = holder.email
-        val phone = holder.phone
         val name = holder.name
         val passenger = holder.passenger
         val newTravel = holder.tvNewTravel
         holder.travel = travelList[listPosition]!!
         source.text = travelList[listPosition]!!.sourceAdders
         destination.text = travelList[listPosition]!!.destinationAddress[0]
-        date.text = travelList[listPosition]!!.departureDate
+        date.text = travelList[listPosition]!!.departureDate +" - "+travelList[listPosition]!!.returnDate
         passenger.text = travelList[listPosition]!!.passengers.toString()
-        //  email.text = travelList[listPosition]!!.email
-        //  phone.text = "0" + travelList[listPosition]!!.phoneNumber.toString()
         name.text = travelList[listPosition]!!.name
         if (markerNewTravel.getBoolean(holder.travel.id, false))
             newTravel.visibility = View.VISIBLE

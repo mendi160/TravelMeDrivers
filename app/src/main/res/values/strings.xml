@@ -37,4 +37,5 @@
     <string name="status">Status</string>
     <string name="clean_filter">Clean FILTER</string>
     <string name="watch_in_map">watch in Map</string>
+    <string name="dates">Dates</string>
 </resources>
