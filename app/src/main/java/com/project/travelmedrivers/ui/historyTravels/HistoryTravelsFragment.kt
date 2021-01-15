@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.ui.MainViewModel
@@ -32,6 +33,7 @@ class HistoryTravelsFragment : Fragment() {
     lateinit var dpFrom: TextView
     lateinit var dpTo: TextView
     lateinit var bFilter: Button
+    lateinit var fabFilterDelete: ExtendedFloatingActionButton
     lateinit var swPaidOnly: Switch
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +51,15 @@ class HistoryTravelsFragment : Fragment() {
         dpFrom.setOnClickListener {
             pickDate(it as TextView)
         }
+        fabFilterDelete = view.findViewById(R.id.fabDelete)
+        fabFilterDelete.setOnClickListener {
+            dpFrom.text = ""
+            dpTo.text = ""
+            swPaidOnly.isChecked = false
+            filteredList= listOf()
+
+            rvClosedTravels.adapter = HistoryTravelsArrayAdapter(closedTravelList, viewModel)
+        }
         dpTo = view.findViewById(R.id.dpTo)
         dpTo.setOnClickListener {
             pickDate(it as TextView)
@@ -57,10 +68,21 @@ class HistoryTravelsFragment : Fragment() {
         swPaidOnly = view.findViewById(R.id.swPaidOnly)
         swPaidOnly.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                filteredList = closedTravelList.filter { it -> it.status == Status.PAID }
-                rvClosedTravels.adapter = HistoryTravelsArrayAdapter(filteredList, viewModel)
+                if (filteredList.isEmpty()) {
+                    filteredList = closedTravelList.filter { it -> it.status == Status.PAID }
+                    rvClosedTravels.adapter = HistoryTravelsArrayAdapter(filteredList, viewModel)
+                } else {
+                    filteredList = filteredList.filter { it -> it.status == Status.PAID }
+                    rvClosedTravels.adapter = HistoryTravelsArrayAdapter(filteredList, viewModel)
+                }
             } else
-                rvClosedTravels.adapter = HistoryTravelsArrayAdapter(closedTravelList, viewModel)
+                if (filteredList.isEmpty())
+                    rvClosedTravels.adapter =
+                        HistoryTravelsArrayAdapter(closedTravelList, viewModel)
+                else
+                    rvClosedTravels.adapter =
+                        HistoryTravelsArrayAdapter(filteredList, viewModel)
+
         }
         bFilter.setOnClickListener {
 
