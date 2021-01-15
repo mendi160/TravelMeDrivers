@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.R
@@ -78,6 +79,7 @@ class OpenTravelArrayAdapter(
         var name: TextView
         var whatsApp: ImageButton
         var bSendOffer: Button
+        var btMap: MaterialButton
         var tvNewTravel: TextView
         var cbIsOfferSent: CheckBox
         lateinit var travel: Travel
@@ -102,15 +104,8 @@ class OpenTravelArrayAdapter(
                     )
                     data = Uri.parse("mailto:")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
                 }
-                //f (intent.resolveActivity(getApplicationContext().packageManager) != null) {
                     getApplicationContext().startActivity(intent)
-               // } else
-                  //  Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
-                  //      .show()
-
-
             }
             phone = itemView.findViewById(R.id.bPhoneCall)
             phone.setOnClickListener {
@@ -118,12 +113,7 @@ class OpenTravelArrayAdapter(
                     data = Uri.parse("tel:${travel.phoneNumber}")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
-                    // if (intent.resolveActivity(getApplicationContext().packageManager) != null) {
                     getApplicationContext().startActivity(intent)
-                //} else
-                   // Toast.makeText(getApplicationContext(), "No App Found", Toast.LENGTH_LONG)
-                     //   .show()
-
             }
             whatsApp = itemView.findViewById(R.id.bWhatsApp)
             whatsApp.setOnClickListener {
@@ -150,6 +140,8 @@ class OpenTravelArrayAdapter(
                 }
                 viewModel.updateTravel(this.travel)
             }
+            btMap = itemView.findViewById(R.id.btMap)
+            btMap.setOnClickListener { OpenInGooleMaps(travel) }
             tvNewTravel = itemView.findViewById(R.id.tvNewTravel)
             cbIsOfferSent = itemView.findViewById(R.id.cbIsOfferSent)
         }
@@ -160,14 +152,28 @@ class OpenTravelArrayAdapter(
                 phone.visibility = View.VISIBLE
                 whatsApp.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
+                btMap.visibility = View.VISIBLE
                 itemView.findViewById<ImageView>(R.id.imageView).rotation = 180F
             } else {
+                btMap.visibility = View.GONE
                 email.visibility = View.GONE
                 phone.visibility = View.GONE
                 whatsApp.visibility = View.GONE
                 name.visibility = View.GONE
                 itemView.findViewById<ImageView>(R.id.imageView).rotation = 0F
             }
+        }
+        @SuppressLint("RestrictedApi")
+        fun OpenInGooleMaps(travel: Travel) {
+            // Space+Needle+Seattle+WAPike+Place+Market+Seattle+WA&travelmode=bicycling"
+
+            val origin = "https://www.google.com/maps/dir/?api=1&origin=" + travel.sourceAdders +
+            "&destination=" + travel.sourceAdders
+
+            var wayP = "&waypoints="+travel.destinationAddress[0]
+            for (i in 1 until  travel.destinationAddress.size) wayP += "|" + travel.destinationAddress[i]
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("$origin$wayP&travelmode=driving"))
+            getApplicationContext().startActivity(browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }
 

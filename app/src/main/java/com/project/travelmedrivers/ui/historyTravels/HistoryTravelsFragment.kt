@@ -14,13 +14,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.travelmedrivers.MainActivity
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.ui.MainViewModel
 import com.project.travelmedrivers.utils.Status
 import com.project.travelmedrivers.utils.Util
 import java.util.*
+
 
 class HistoryTravelsFragment : Fragment() {
     lateinit var rvClosedTravels: RecyclerView
@@ -97,7 +97,7 @@ class HistoryTravelsFragment : Fragment() {
         })
     }
 
-    @SuppressLint( "UseRequireInsteadOfGet")
+    @SuppressLint("UseRequireInsteadOfGet")
     private fun pickDate(textV: TextView) {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -115,4 +115,6 @@ class HistoryTravelsFragment : Fragment() {
         )
         dpd.show()
     }
+
+
 }
