@@ -22,10 +22,12 @@
 
         <TextView
             android:id="@+id/dpTo"
+            android:layout_marginEnd="5dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:hint="@string/until_date"
-            android:inputType="none" />
+            android:inputType="none"
+            android:layout_marginRight="10dp" />
 
         <Switch
             android:id="@+id/swPaidOnly"
@@ -46,7 +48,7 @@
         android:id="@+id/fabDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete FILTER"
+        android:text="@string/clean_filter"
         app:icon="@android:drawable/ic_menu_delete"
         />
 

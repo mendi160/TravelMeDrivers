@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.R
@@ -79,7 +80,7 @@ class OpenTravelArrayAdapter(
         var name: TextView
         var whatsApp: ImageButton
         var bSendOffer: Button
-        var btMap: MaterialButton
+        var btMap: ExtendedFloatingActionButton
         var tvNewTravel: TextView
         var cbIsOfferSent: CheckBox
         lateinit var travel: Travel
@@ -141,7 +142,7 @@ class OpenTravelArrayAdapter(
                 viewModel.updateTravel(this.travel)
             }
             btMap = itemView.findViewById(R.id.btMap)
-            btMap.setOnClickListener { OpenInGooleMaps(travel) }
+            btMap.setOnClickListener { openInGoogleMaps(travel) }
             tvNewTravel = itemView.findViewById(R.id.tvNewTravel)
             cbIsOfferSent = itemView.findViewById(R.id.cbIsOfferSent)
         }
@@ -164,7 +165,7 @@ class OpenTravelArrayAdapter(
             }
         }
         @SuppressLint("RestrictedApi")
-        fun OpenInGooleMaps(travel: Travel) {
+        fun openInGoogleMaps(travel: Travel) {
             // Space+Needle+Seattle+WAPike+Place+Market+Seattle+WA&travelmode=bicycling"
 
             val origin = "https://www.google.com/maps/dir/?api=1&origin=" + travel.sourceAdders +

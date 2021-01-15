@@ -35,4 +35,6 @@
     <string name="phone_number">Phone Number</string>
     <string name="email">Email</string>
     <string name="status">Status</string>
+    <string name="clean_filter">Clean FILTER</string>
+    <string name="watch_in_map">watch in Map</string>
 </resources>
