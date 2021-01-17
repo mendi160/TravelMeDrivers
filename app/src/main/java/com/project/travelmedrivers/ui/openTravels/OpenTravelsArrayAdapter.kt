@@ -12,7 +12,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -53,14 +52,13 @@ class OpenTravelArrayAdapter(
         holder.travel = travelList[listPosition]!!
         source.text = travelList[listPosition]!!.sourceAdders
         destination.text = travelList[listPosition]!!.destinationAddress[0]
-        date.text = travelList[listPosition]!!.departureDate +" - "+travelList[listPosition]!!.returnDate
+        date.text =
+            travelList[listPosition]!!.departureDate + " - " + travelList[listPosition]!!.returnDate
         passenger.text = travelList[listPosition]!!.passengers.toString()
         name.text = travelList[listPosition]!!.name
         if (markerNewTravel.getBoolean(holder.travel.id, false))
             newTravel.visibility = View.VISIBLE
-        if (travelList[listPosition]!!.serviceProvider.containsKey(FirebaseAuth.getInstance().currentUser!!.email?.let {
-                Util.emailToKey(it)
-            }))
+        if (travelList[listPosition]!!.serviceProvider.containsKey(FirebaseAuth.getInstance().currentUser!!.email?.let { Util.emailToKey(it) }))
             holder.cbIsOfferSent.isChecked = true
     }
 
@@ -102,7 +100,7 @@ class OpenTravelArrayAdapter(
                     data = Uri.parse("mailto:")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
-                    getApplicationContext().startActivity(intent)
+                getApplicationContext().startActivity(intent)
             }
             phone = itemView.findViewById(R.id.bPhoneCall)
             phone.setOnClickListener {
@@ -110,13 +108,14 @@ class OpenTravelArrayAdapter(
                     data = Uri.parse("tel:${travel.phoneNumber}")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
-                    getApplicationContext().startActivity(intent)
+                getApplicationContext().startActivity(intent)
             }
             whatsApp = itemView.findViewById(R.id.bWhatsApp)
             whatsApp.setOnClickListener {
 
                 val sendIntent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse ( "https://wa.me/${travel.phoneNumber}/?text=" + "Hi i want to offer you travel" )
+                    data =
+                        Uri.parse("https://wa.me/${travel.phoneNumber}/?text=" + "Hi i want to offer you travel")
                     setPackage("com.whatsapp");
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
@@ -160,16 +159,18 @@ class OpenTravelArrayAdapter(
                 itemView.findViewById<ImageView>(R.id.imageView).rotation = 0F
             }
         }
+
         @SuppressLint("RestrictedApi")
         fun openInGoogleMaps(travel: Travel) {
             // Space+Needle+Seattle+WAPike+Place+Market+Seattle+WA&travelmode=bicycling"
 
             val origin = "https://www.google.com/maps/dir/?api=1&origin=" + travel.sourceAdders +
-            "&destination=" + travel.sourceAdders
+                    "&destination=" + travel.sourceAdders
 
-            var wayP = "&waypoints="+travel.destinationAddress[0]
-            for (i in 1 until  travel.destinationAddress.size) wayP += "|" + travel.destinationAddress[i]
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("$origin$wayP&travelmode=driving"))
+            var wayP = "&waypoints=" + travel.destinationAddress[0]
+            for (i in 1 until travel.destinationAddress.size) wayP += "|" + travel.destinationAddress[i]
+            val browserIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("$origin$wayP&travelmode=driving"))
             getApplicationContext().startActivity(browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }

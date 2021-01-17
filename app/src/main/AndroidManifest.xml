@@ -21,10 +21,9 @@
             android:theme="@style/Theme.TravelMeDrivers.NoActionBar">
             <intent-filter>
                 <action android:name="TravelMe.TravelAdded" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-
         </activity>
-
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
