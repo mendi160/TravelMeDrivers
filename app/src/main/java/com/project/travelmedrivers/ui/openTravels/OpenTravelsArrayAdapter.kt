@@ -74,9 +74,10 @@ class OpenTravelArrayAdapter(
         var name: TextView
         var whatsApp: ImageButton
         var bSendOffer: Button
-        var btMap: ExtendedFloatingActionButton
+        var btMap: FloatingActionButton
         var tvNewTravel: TextView
         var cbIsOfferSent: CheckBox
+        private val tvClientName:TextView
         lateinit var travel: Travel
 
         init {
@@ -87,6 +88,7 @@ class OpenTravelArrayAdapter(
             passenger = itemView.findViewById(R.id.tvPassenger)
             name = itemView.findViewById(R.id.tvName)
             email = itemView.findViewById(R.id.bSendEmail)
+            tvClientName=itemView.findViewById(R.id.tvClientName)
             email.setOnClickListener {
 
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
@@ -149,6 +151,7 @@ class OpenTravelArrayAdapter(
                 whatsApp.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
                 btMap.visibility = View.VISIBLE
+                tvClientName.visibility=View.VISIBLE
                 itemView.findViewById<ImageView>(R.id.imageView).rotation = 180F
             } else {
                 btMap.visibility = View.GONE
@@ -156,6 +159,7 @@ class OpenTravelArrayAdapter(
                 phone.visibility = View.GONE
                 whatsApp.visibility = View.GONE
                 name.visibility = View.GONE
+                tvClientName.visibility=View.GONE
                 itemView.findViewById<ImageView>(R.id.imageView).rotation = 0F
             }
         }
