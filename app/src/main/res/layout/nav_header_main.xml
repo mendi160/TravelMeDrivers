@@ -19,9 +19,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/baseline_settings_power_black_18"
         android:onClick="logout"
-        app:backgroundTint="@android:color/white" />
+        android:src="@drawable/baseline_settings_power_black_18"
+        app:backgroundTint="@android:color/white"
+        app:fabSize="mini" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
