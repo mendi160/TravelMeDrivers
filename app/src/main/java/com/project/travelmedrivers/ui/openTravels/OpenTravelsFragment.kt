@@ -73,8 +73,8 @@ class OpenTravelsFragment : Fragment() {
                 while (t.isAlive);
                 rvOpenTravels.adapter = arrayAdapter
             } else {
-                rvOpenTravels.adapter =
-                    OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel!!)
+                (rvOpenTravels.adapter as OpenTravelArrayAdapter).travelList = openTravelList
+                (rvOpenTravels.adapter as OpenTravelArrayAdapter).notifyDataSetChanged()
             }
 
         }

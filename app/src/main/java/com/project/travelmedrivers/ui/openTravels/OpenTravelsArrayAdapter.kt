@@ -22,7 +22,7 @@ import com.project.travelmedrivers.utils.Util
 
 
 class OpenTravelArrayAdapter(
-    var travelList: List<Travel?>,
+     var travelList: List<Travel?>,
     var viewModel: MainViewModel, var markerNewTravel: SharedPreferences
 ) :
     RecyclerView.Adapter<OpenTravelArrayAdapter.ViewHolder>() {
