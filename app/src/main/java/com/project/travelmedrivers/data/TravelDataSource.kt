@@ -19,11 +19,9 @@ class TravelDataSource private constructor() : ITravelDataSource {
     private var referenceMap = mutableMapOf<String, DatabaseReference>()
     private val database = FirebaseDatabase.getInstance()
     var travelsList = mutableListOf<Travel>()
-    private val isSuccess = MutableLiveData<Boolean?>()
+    private val isSuccess = MutableLiveData<Boolean>()
     private val uId = FirebaseAuth.getInstance().uid
 
-    //    private var userTravels: DatabaseReference =
-//        FirebaseDatabase.getInstance().getReference("Travels/$uId")
     private var notifyToTravelListListener: NotifyToTravelListListener? = null
     var requestCount: Int = 0
     private val countRef = database.getReference("counter");
@@ -39,7 +37,7 @@ class TravelDataSource private constructor() : ITravelDataSource {
                             val travel = travels.getValue(Travel::class.java)
                             if (travel != null) {
                                 referenceMap[travel.id] = travels.ref
-                                travelsList.add(0,travel)
+                                travelsList.add(0, travel)
                             }
                         }
                     }
@@ -80,15 +78,12 @@ class TravelDataSource private constructor() : ITravelDataSource {
             .addOnSuccessListener { isSuccess.postValue(true) }
             .addOnFailureListener { isSuccess.postValue(false) }
     }
-//        removeTravel(travel.id)
-//        addTravel(travel)
-//    }
 
     override fun getAllTravels(): MutableList<Travel> {
         return travelsList
     }
 
-    override fun getIsSuccess(): MutableLiveData<Boolean?> {
+    override fun getIsSuccess(): MutableLiveData<Boolean> {
         return isSuccess
     }
 

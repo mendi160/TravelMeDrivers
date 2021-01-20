@@ -41,16 +41,10 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
 
     }
 
-    fun addTravel(travel: Travel?) {
-        repository.addTravel(travel)
-    }
-
     fun updateTravel(travel: Travel?) {
         repository.updateTravel(travel)
     }
 
-    fun getAllOpenTravels() {
-    }
 
     fun relevantTravels(radius: Int, location: String, context: Context): List<Travel?> {
         val latLong = AddressTool.getLocationFromAddress(context, location)
@@ -61,25 +55,11 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
                 )?.let { it2 ->
                     AddressTool.calculateDistance(it1, it2)
                 }
-            }!! <= radius
+            }!!  <= radius
         }
     }
-//
-//    fun getRelevantOpenTravels(distance: Double, location: String) {
-//        getAllOpenTravels()
-//    }
-//
-//    fun getRunningTravels() {
-//    }
-//
-//    fun getClosedTravels() {
-//    }
-//
-//    fun getAllTravels(): MutableLiveData<List<Travel?>?>? {
-//        return repository.getAllTravels()
-//    }
 
-    fun isSuccess(): MutableLiveData<Boolean?>? {
+    fun isSuccess(): MutableLiveData<Boolean> {
         return repository.getIsSuccess()
     }
 }

@@ -8,7 +8,7 @@ interface ITravelDataSource {
     fun addTravel(travel: Travel)
     fun updateTravel(travel: Travel)
     fun getAllTravels(): MutableList<Travel>
-    fun getIsSuccess(): MutableLiveData<Boolean?>
+    fun getIsSuccess(): MutableLiveData<Boolean>
     interface NotifyToTravelListListener {
         fun onTravelsChanged()
     }

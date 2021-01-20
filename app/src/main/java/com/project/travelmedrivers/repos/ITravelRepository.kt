@@ -11,5 +11,5 @@ interface ITravelRepository {
     fun updateTravel(travel: Travel?)
     fun getAllTravels(): MutableLiveData<List<Travel?>?>?
     fun getLocalTravels(): LiveData<List<Travel>>
-    fun getIsSuccess(): MutableLiveData<Boolean?>?
+    fun getIsSuccess(): MutableLiveData<Boolean>
 }

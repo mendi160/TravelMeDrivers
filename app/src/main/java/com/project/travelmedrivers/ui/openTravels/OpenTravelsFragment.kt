@@ -56,7 +56,7 @@ class OpenTravelsFragment : Fragment() {
             ?.getSharedPreferences("markerNewTravel", Context.MODE_PRIVATE)!!
         editor = markerNewTravel.edit()
         pbLoading = view.findViewById(R.id.pbLoading)
-        arrayAdapter = OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel!!)
+        arrayAdapter = OpenTravelArrayAdapter(openTravelList, viewModel, markerNewTravel)
         etLocation = view.findViewById<EditText>(R.id.etLocation)
         editDistance = view.findViewById<EditText>(R.id.etDistance)
         bFilter = view.findViewById(R.id.bFilter)

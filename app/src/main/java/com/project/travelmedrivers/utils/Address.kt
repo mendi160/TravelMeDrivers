@@ -42,8 +42,12 @@ class AddressTool {
                 if (address == null) {
                     return null
                 }
-                val location = address[0]
-                latLong = LatLng(location.latitude, location.longitude)
+                latLong = if (address.isNotEmpty()) {
+                    val location = address[0]
+                    LatLng(location.latitude, location.longitude)
+                } else {
+                    LatLng(0.0, 0.0)
+                }
             } catch (ex: IOException) {
                 ex.printStackTrace()
             }

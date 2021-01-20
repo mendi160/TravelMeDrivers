@@ -103,13 +103,10 @@ class HistoryTravelsFragment : Fragment() {
             }
             rvClosedTravels.adapter = HistoryTravelsArrayAdapter(filteredList, viewModel)
         }
-        //arrayAdapter = HistoryTravelsArrayAdapter(closedTravelList, viewModel)
         rvClosedTravels = view.findViewById(R.id.rvClosedTravel)
-        // arrayAdapter = OpenTravelArrayAdapter(openTravelList)
         rvClosedTravels.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(activity)
-            // adapter = arrayAdapter
         }
         viewModel.closedTravelsFragment?.observe(this, {
             if (it?.size != 0) {

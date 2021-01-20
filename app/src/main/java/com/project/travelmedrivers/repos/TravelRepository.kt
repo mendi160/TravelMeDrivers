@@ -17,7 +17,6 @@ class TravelRepository private constructor(application: Application) : ITravelRe
 
     private val historyDataSource: IHistoryDataSource
     val mutableLiveData = MutableLiveData<List<Travel?>?>()
-    var userTravels: MutableList<Travel> = mutableListOf()
 
     companion object {
 
@@ -61,42 +60,7 @@ class TravelRepository private constructor(application: Application) : ITravelRe
         return historyDataSource.getAllTravels()
     }
 
-    override fun getIsSuccess(): MutableLiveData<Boolean?> {
+    override fun getIsSuccess(): MutableLiveData<Boolean> {
         return travelDataSource.getIsSuccess()
     }
-
-//    fun userTravels() {
-//        userTravels =
-//            mutableLiveData.value?.filter { it -> it?.status != Status.CLOSED } as MutableList<Travel>
-//    }
-
-//    fun confirmCompany(travel: Travel, companyEmail: String) {
-//        travel.serviceProvider[companyEmail] to true;
-//        travelDataSource.updateTravel(travel)
-//    }
-//
-//    fun changeReceivedStatus(travel: Travel) {
-//        travel.status = Status.RECEIVED
-//        travelDataSource.updateTravel(travel)
-//    }
-//
-//    fun relevantTravels(radius: Int, location: String, context: Context): List<Travel?> {
-//        val latLong = AddressTool.getLocationFromAddress(context, location)
-//        val tempList =
-//            mutableLiveData.value!!.filter { it -> it!!.status == Status.RECEIVED || it.status == Status.SENT }
-//        return tempList.filter { it ->
-//            latLong?.let { it1 ->
-//                AddressTool.getLocationFromAddress(
-//                    context, it!!.sourceAdders
-//                )?.let { it2 ->
-//                    AddressTool.calculateDistance(it1, it2)
-//                }
-//            }!! <= radius
-//        }
-//    }
-//
-//    fun updateServiceProvider(travel: Travel) {
-//        travel.serviceProvider[FirebaseAuth.getInstance().currentUser?.email] to false
-//        travelDataSource.updateTravel(travel)
-//    }
 }
