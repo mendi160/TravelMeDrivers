@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
@@ -70,12 +71,15 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 currentUser = mAuth.currentUser!!
                 // Successfully signed in
-                if (!currentUser.isEmailVerified)
-                    sendEmailVerification()
+                if (!currentUser.isEmailVerified){
+                    findViewById<TextView>(R.id.tvLogin).setText("AN EMAIL SENT TO :${currentUser.email} \n PLEASE VERIFY YOUR EMAIL ADDRESS AND COME BACK")
+                    sendEmailVerification()}
                 else {
                     val editor = sharedPreferences.edit()
                     editor.putBoolean(currentUser.uid, true)
                     editor.apply()
+                    findViewById<TextView>(R.id.tvLogin).setText("CONNECTED")
+
                     startActivity(Intent(this, MainActivity::class.java))
                 }
             } else {

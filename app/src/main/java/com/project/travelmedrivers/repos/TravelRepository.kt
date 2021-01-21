@@ -10,6 +10,7 @@ import com.project.travelmedrivers.data.ITravelDataSource.NotifyToTravelListList
 import com.project.travelmedrivers.data.TravelDataSource
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.utils.Status
+import com.project.travelmedrivers.utils.Util
 
 
 class TravelRepository private constructor(application: Application) : ITravelRepository {
@@ -37,7 +38,7 @@ class TravelRepository private constructor(application: Application) : ITravelRe
                     val travelList: List<Travel?> = travelDataSource.getAllTravels()
                     mutableLiveData.postValue(travelList)
                     historyDataSource.clearTable()
-                    historyDataSource.addTravels(travelList.filter { it -> it!!.status == Status.CLOSED || it.status == Status.PAID } as List<Travel>)
+                    historyDataSource.addTravels(travelList.filter { it -> it!!.serviceProvider[Util.getCompanyKey()] == true &&(it!!.status == Status.CLOSED || it.status == Status.PAID)  } as List<Travel>)
                 }
             }
         travelDataSource.setNotifyToTravelListListener(notifyToTravelListListener)
