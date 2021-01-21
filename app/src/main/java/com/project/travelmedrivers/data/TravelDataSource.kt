@@ -2,7 +2,6 @@ package com.project.travelmedrivers.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.project.travelmedrivers.data.ITravelDataSource.NotifyToTravelListListener
 import com.project.travelmedrivers.entities.Travel
@@ -20,7 +19,6 @@ class TravelDataSource private constructor() : ITravelDataSource {
     private val database = FirebaseDatabase.getInstance()
     var travelsList = mutableListOf<Travel>()
     private val isSuccess = MutableLiveData<Boolean>()
-    private val uId = FirebaseAuth.getInstance().uid
 
     private var notifyToTravelListListener: NotifyToTravelListListener? = null
     var requestCount: Int = 0
@@ -63,14 +61,7 @@ class TravelDataSource private constructor() : ITravelDataSource {
     }
 
     override fun addTravel(travel: Travel) {
-//        //while (requestCount == 0);
-//        val id = userTravels.push().key
-//        if (id != null) {
-//            travel.id = id
-//        }
-//        userTravels.setValue(travel)
-//            .addOnSuccessListener { isSuccess.postValue(true) }
-//            .addOnFailureListener { isSuccess.postValue(false) }
+        TODO("Not yet implemented")
     }
 
     override fun updateTravel(travel: Travel) {
@@ -88,14 +79,10 @@ class TravelDataSource private constructor() : ITravelDataSource {
     }
 
     override fun removeTravel(id: String) {
-//        userTravels.child(id).removeValue()
-//            .addOnSuccessListener { Log.i("remove", "The travel $id removed") }
-//            .addOnFailureListener {
-//                Log.i("remove", it.message.toString())
-//            }
+        TODO("Not yet implemented")
     }
 
-    override fun setNotifyToTravelListListener(l: ITravelDataSource.NotifyToTravelListListener?) {
+    override fun setNotifyToTravelListListener(l: NotifyToTravelListListener?) {
         notifyToTravelListListener = l;
     }
 }

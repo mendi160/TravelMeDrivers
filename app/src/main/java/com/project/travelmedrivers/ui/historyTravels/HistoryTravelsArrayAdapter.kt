@@ -1,17 +1,12 @@
 package com.project.travelmedrivers.ui.historyTravels
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.ui.MainViewModel
@@ -51,7 +46,7 @@ class HistoryTravelsArrayAdapter(
         returnDate.text = travelList[listPosition]!!.returnDate.toString()
         if (travelList[listPosition]!!.status == Status.PAID) {
             bPay.isEnabled = false
-            bPay.text="paid up"
+            bPay.text = "paid up"
         }
     }
 
@@ -78,11 +73,6 @@ class HistoryTravelsArrayAdapter(
         }
 
         override fun onClick(v: View?) {
-            Log.i("click", "Click on linear layout")
-
-
         }
-
-
     }
 }

@@ -2,32 +2,8 @@ package com.project.travelmedrivers.utils
 
 import android.content.Context
 import android.location.Geocoder
-import com.google.android.gms.maps.model.LatLng;
-import java.io.IOException
+import com.google.android.gms.maps.model.LatLng
 import kotlin.math.*
-
-
-class Address {
-    var _city: String
-        private set
-        get() = field
-    var _street: String
-        private set
-        get() = field
-    var _number: Int
-        private set
-        get() = field
-
-    constructor(_city: String, _street: String, _number: Int) {
-        this._city = _city
-        this._street = _street
-        this._number = _number
-    }
-
-    override fun toString(): String {
-        return "Address: $_city, $_street, $_number"
-    }
-}
 
 class AddressTool {
     companion object {
@@ -48,8 +24,8 @@ class AddressTool {
                 } else {
                     LatLng(0.0, 0.0)
                 }
-            } catch (ex: IOException) {
-                ex.printStackTrace()
+            } catch (ex: Exception) {
+                latLong = LatLng(0.0, 0.0)
             }
             return latLong
         }

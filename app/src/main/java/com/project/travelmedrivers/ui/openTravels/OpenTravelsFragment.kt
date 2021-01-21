@@ -80,11 +80,9 @@ class OpenTravelsFragment : Fragment() {
         }
         etLocation.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) autocomplete() }
         rvOpenTravels = view.findViewById(R.id.rvOpenTravel)
-        // arrayAdapter = OpenTravelArrayAdapter(openTravelList)
         rvOpenTravels.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(activity)
-            // adapter = arrayAdapter
         }
         viewModel.openTravelsFragment?.observe(this, {
             if (it?.size != 0) {
@@ -107,7 +105,6 @@ class OpenTravelsFragment : Fragment() {
         val api = "AIzaSyBUPxQMO2iI0DS_WTeetlcND9mpWaUCyyY"
         Places.initialize(getApplicationContext(), api)
         val fields = listOf(Place.Field.ADDRESS)
-
         // Specify the types of place data to return.
 
         // Set up a PlaceSelectionListener to handle the response.

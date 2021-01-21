@@ -25,8 +25,6 @@ import java.util.*
 
 class HistoryTravelsFragment : Fragment() {
     lateinit var rvClosedTravels: RecyclerView
-
-    // lateinit var arrayAdapter: HistoryTravelsArrayAdapter
     private var closedTravelList = mutableListOf<Travel>()
     private var filteredList = listOf<Travel>()
     lateinit var viewModel: MainViewModel
@@ -56,7 +54,7 @@ class HistoryTravelsFragment : Fragment() {
             dpFrom.text = ""
             dpTo.text = ""
             swPaidOnly.isChecked = false
-            filteredList= listOf()
+            filteredList = listOf()
 
             rvClosedTravels.adapter = HistoryTravelsArrayAdapter(closedTravelList, viewModel)
         }

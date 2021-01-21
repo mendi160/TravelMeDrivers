@@ -12,9 +12,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.R
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.ui.MainViewModel
@@ -22,7 +20,7 @@ import com.project.travelmedrivers.utils.Util
 
 
 class OpenTravelArrayAdapter(
-     var travelList: List<Travel?>,
+    var travelList: List<Travel?>,
     var viewModel: MainViewModel, var markerNewTravel: SharedPreferences
 ) :
     RecyclerView.Adapter<OpenTravelArrayAdapter.ViewHolder>() {
@@ -52,13 +50,14 @@ class OpenTravelArrayAdapter(
         holder.travel = travelList[listPosition]!!
         source.text = travelList[listPosition]!!.sourceAdders
         destination.text = travelList[listPosition]!!.destinationAddress[0]
-        date.text =
-            travelList[listPosition]!!.departureDate + " - " + travelList[listPosition]!!.returnDate
+        "${travelList[listPosition]!!.departureDate} -> ${travelList[listPosition]!!.returnDate}".also {
+            date.text = it
+        }
         passenger.text = travelList[listPosition]!!.passengers.toString()
         name.text = travelList[listPosition]!!.name
         if (markerNewTravel.getBoolean(holder.travel.id, false))
             newTravel.visibility = View.VISIBLE
-        if (travelList[listPosition]!!.serviceProvider.containsKey(FirebaseAuth.getInstance().currentUser!!.email?.let { Util.emailToKey(it) }))
+        if (travelList[listPosition]!!.serviceProvider.containsKey(Util.getCompanyKey()))
             holder.cbIsOfferSent.isChecked = true
     }
 
@@ -77,7 +76,7 @@ class OpenTravelArrayAdapter(
         var btMap: FloatingActionButton
         var tvNewTravel: TextView
         var cbIsOfferSent: CheckBox
-        private val tvClientName:TextView
+        private val tvClientName: TextView
         lateinit var travel: Travel
 
         init {
@@ -88,7 +87,7 @@ class OpenTravelArrayAdapter(
             passenger = itemView.findViewById(R.id.tvPassenger)
             name = itemView.findViewById(R.id.tvName)
             email = itemView.findViewById(R.id.bSendEmail)
-            tvClientName=itemView.findViewById(R.id.tvClientName)
+            tvClientName = itemView.findViewById(R.id.tvClientName)
             email.setOnClickListener {
 
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
@@ -130,9 +129,7 @@ class OpenTravelArrayAdapter(
             }
             bSendOffer = itemView.findViewById(R.id.bSendOffer)
             bSendOffer.setOnClickListener {
-                val key = FirebaseAuth.getInstance().currentUser?.email?.let { it1 ->
-                    Util.emailToKey(it1)
-                }
+                val key = Util.getCompanyKey()
                 if (key != null) {
                     this@ViewHolder.travel.serviceProvider[key] = false
                 }
@@ -151,7 +148,7 @@ class OpenTravelArrayAdapter(
                 whatsApp.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
                 btMap.visibility = View.VISIBLE
-                tvClientName.visibility=View.VISIBLE
+                tvClientName.visibility = View.VISIBLE
                 itemView.findViewById<ImageView>(R.id.imageView).rotation = 180F
             } else {
                 btMap.visibility = View.GONE
@@ -159,7 +156,7 @@ class OpenTravelArrayAdapter(
                 phone.visibility = View.GONE
                 whatsApp.visibility = View.GONE
                 name.visibility = View.GONE
-                tvClientName.visibility=View.GONE
+                tvClientName.visibility = View.GONE
                 itemView.findViewById<ImageView>(R.id.imageView).rotation = 0F
             }
         }

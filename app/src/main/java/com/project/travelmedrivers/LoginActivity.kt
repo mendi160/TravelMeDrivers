@@ -78,10 +78,6 @@ class LoginActivity : AppCompatActivity() {
                     editor.apply()
                     startActivity(Intent(this, MainActivity::class.java))
                 }
-                // val user = FirebaseAuth.getInstance().currentUser
-                //      sendEmailVerificationWithContinueUrl()
-
-                // ...
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
@@ -114,7 +110,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun themeAndLogo() {
         val providers = emptyList<AuthUI.IdpConfig>()
-
         // [START auth_fui_theme_logo]
         startActivityForResult(
             AuthUI.getInstance()
@@ -151,8 +146,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendEmailVerification() {
-        // Disable Verify Email button
-        //val currentUser: FirebaseUser = mAuth.getCurrentUser()!!
         currentUser.sendEmailVerification()
             .addOnCompleteListener(
                 this
@@ -166,7 +159,6 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                     if (currentUser.isEmailVerified) {
                         // user is verified, so you can finish this activity or send user to activity which you want.
-                        // finish();
                         Log.i("fff", "email")
                         startActivity(Intent(this, MainActivity::class.java))
                         Toast.makeText(

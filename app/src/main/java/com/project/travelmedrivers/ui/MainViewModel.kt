@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.repos.ITravelRepository
 import com.project.travelmedrivers.repos.TravelRepository
@@ -27,10 +26,7 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
         closedTravelsFragment = MutableLiveData(listOf())
         repository.getAllTravels()?.observeForever {
             runningTravelsFragment?.postValue(it?.filter { travel ->
-                travel!!.serviceProvider[
-                        FirebaseAuth.getInstance().currentUser!!.email?.let { email ->
-                            Util.emailToKey(email)
-                        }] == true
+                travel!!.serviceProvider[Util.getCompanyKey()] == true
                         && (travel.status == Status.RUNNING || travel.status == Status.RECEIVED)
             })
             openTravelsFragment?.postValue(it?.filter { travel -> travel!!.status == Status.SENT })
@@ -45,7 +41,6 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
         repository.updateTravel(travel)
     }
 
-
     fun relevantTravels(radius: Int, location: String, context: Context): List<Travel?> {
         val latLong = AddressTool.getLocationFromAddress(context, location)
         return openTravelsFragment?.value!!.filter { it ->
@@ -55,7 +50,7 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
                 )?.let { it2 ->
                     AddressTool.calculateDistance(it1, it2)
                 }
-            }!!  <= radius
+            }!! <= radius
         }
     }
 

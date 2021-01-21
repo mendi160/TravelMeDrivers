@@ -35,7 +35,6 @@ class TravelRepository private constructor(application: Application) : ITravelRe
             object : NotifyToTravelListListener {
                 override fun onTravelsChanged() {
                     val travelList: List<Travel?> = travelDataSource.getAllTravels()
-                    //mutableLiveData.value = travelList
                     mutableLiveData.postValue(travelList)
                     historyDataSource.clearTable()
                     historyDataSource.addTravels(travelList.filter { it -> it!!.status == Status.CLOSED || it.status == Status.PAID } as List<Travel>)

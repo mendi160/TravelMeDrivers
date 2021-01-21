@@ -19,7 +19,6 @@ class TravelBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i("MyBroadCast", "brdcst rcvr")
         addNotification(context)
-
     }
 }
 
@@ -45,8 +44,4 @@ private fun addNotification(context: Context?) {
     mNotificationManager!!.createNotificationChannel(channel)
     mBuilder.setChannelId(id)
     mNotificationManager.notify(1, mBuilder.build())
-}
-
-fun getPackageName(context: Context): String {
-    return context.packageName
 }

@@ -11,7 +11,6 @@ class HistoryDataSource(context: Context?) : IHistoryDataSource {
     init {
         val database = RoomDataSource.getInstance(context)
         travelDao = database!!.travelDao!!
-      //  travelDao.clear()
     }
 
     fun getTravel(id: String?): LiveData<Travel?>? {
@@ -35,7 +34,7 @@ class HistoryDataSource(context: Context?) : IHistoryDataSource {
     }
 
     override fun getAllTravels(): LiveData<List<Travel>> {
-        val l= travelDao.getAll().observeForever{it -> Log.i("test",it.size.toString())}
+        val l = travelDao.getAll().observeForever { it -> Log.i("test", it.size.toString()) }
         return travelDao.getAll()
     }
 
