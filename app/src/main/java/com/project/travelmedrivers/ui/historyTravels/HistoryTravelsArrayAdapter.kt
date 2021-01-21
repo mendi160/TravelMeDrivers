@@ -40,8 +40,8 @@ class HistoryTravelsArrayAdapter(
         val returnDate = holder.returnDate
         val bPay = holder.bPay
         holder.travel = travelList[listPosition]!!
-        source.text = travelList[listPosition]!!.sourceAdders
-        destination.text = travelList[listPosition]!!.destinationAddress[0]
+        source.text = travelList[listPosition]!!.sourceAdders.substringBefore("&")
+        destination.text = travelList[listPosition]!!.destinationAddress[0].substringBefore("&")
         date.text = travelList[listPosition]!!.departureDate
         returnDate.text = travelList[listPosition]!!.returnDate.toString()
         if (travelList[listPosition]!!.status == Status.PAID) {

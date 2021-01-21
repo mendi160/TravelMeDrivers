@@ -48,8 +48,8 @@ class OpenTravelArrayAdapter(
         val passenger = holder.passenger
         val newTravel = holder.tvNewTravel
         holder.travel = travelList[listPosition]!!
-        source.text = travelList[listPosition]!!.sourceAdders
-        destination.text = travelList[listPosition]!!.destinationAddress[0]
+        source.text = travelList[listPosition]!!.sourceAdders.substringBefore("&")
+        destination.text = travelList[listPosition]!!.destinationAddress[0].substringBefore("&")
         "${travelList[listPosition]!!.departureDate} -> ${travelList[listPosition]!!.returnDate}".also {
             date.text = it
         }
@@ -165,11 +165,11 @@ class OpenTravelArrayAdapter(
         fun openInGoogleMaps(travel: Travel) {
             // Space+Needle+Seattle+WAPike+Place+Market+Seattle+WA&travelmode=bicycling"
 
-            val origin = "https://www.google.com/maps/dir/?api=1&origin=" + travel.sourceAdders +
-                    "&destination=" + travel.sourceAdders
+            val origin = "https://www.google.com/maps/dir/?api=1&origin=" + travel.sourceAdders.substringBefore("&") +
+                    "&destination=" + travel.sourceAdders.substringBefore("&")
 
-            var wayP = "&waypoints=" + travel.destinationAddress[0]
-            for (i in 1 until travel.destinationAddress.size) wayP += "|" + travel.destinationAddress[i]
+            var wayP = "&waypoints=" + travel.destinationAddress[0].substringBefore("&")
+            for (i in 1 until travel.destinationAddress.size) wayP += "|" + travel.destinationAddress[i].substringBefore("&")
             val browserIntent =
                 Intent(Intent.ACTION_VIEW, Uri.parse("$origin$wayP&travelmode=driving"))
             getApplicationContext().startActivity(browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))

@@ -37,8 +37,8 @@ class RunningTravelArrayAdapter(
         val returnDate = holder.returnDate
         val status = holder.status
         holder.travel = travelList[listPosition]
-        source.text = travelList[listPosition].sourceAdders
-        destination.text = travelList[listPosition].destinationAddress[0]
+        source.text = travelList[listPosition].sourceAdders.substringBefore("&")
+        destination.text = travelList[listPosition].destinationAddress[0].substringBefore("&")
         departureDate.text = travelList[listPosition].departureDate
         returnDate.text = travelList[listPosition].returnDate
         status.text = travelList[listPosition].status.name
