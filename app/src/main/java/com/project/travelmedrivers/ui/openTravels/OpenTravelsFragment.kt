@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -62,16 +63,10 @@ class OpenTravelsFragment : Fragment() {
         bFilter = view.findViewById(R.id.bFilter)
         bFilter.setOnClickListener {
             if (etLocation.text.toString() != "" && editDistance.text.toString() != "") {
-                val t = Thread {
-                    arrayAdapter.travelList = viewModel.relevantTravels(
-                        editDistance.text.toString().toInt(),
-                        etLocation.text.toString(),
-                        requireActivity().applicationContext
-                    )
-                }
-                t.start()
-                while (t.isAlive);
-                rvOpenTravels.adapter = arrayAdapter
+                RelevantTravels(
+                    etLocation.text.toString(),
+                    editDistance.text.toString().toInt()
+                ).execute()
             } else {
                 (rvOpenTravels.adapter as OpenTravelArrayAdapter).travelList = openTravelList
                 (rvOpenTravels.adapter as OpenTravelArrayAdapter).notifyDataSetChanged()
@@ -152,5 +147,25 @@ class OpenTravelsFragment : Fragment() {
             editor.apply()
         }
         Log.i("yyyyy", "yyyy")
+    }
+
+    inner class RelevantTravels(location: String, distance: Int) : AsyncTask<Unit, Unit, Unit>() {
+        override fun onPreExecute() {
+            super.onPreExecute()
+            pbLoading.visibility = View.VISIBLE
+        }
+
+        override fun doInBackground(vararg params: Unit?) {
+            arrayAdapter.travelList = viewModel.relevantTravels(
+                editDistance.text.toString().toInt(),
+                etLocation.text.toString(),
+                requireActivity().applicationContext
+            )
+        }
+
+        override fun onPostExecute(result: Unit?) {
+            pbLoading.visibility = View.GONE
+            rvOpenTravels.adapter = arrayAdapter
+        }
     }
 }
