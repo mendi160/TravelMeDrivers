@@ -30,6 +30,15 @@ class AddressTool {
             return latLong
         }
 
+        fun stringToLatLong(adderss: String): LatLng {
+            // Adderss example: "Dalton, Israel&lat/lng: (33.016553,35.489911)"
+            val latLong = adderss.substringAfter("lat/lng: (").substringBefore(")")
+            return LatLng(
+                latLong.substringBefore(",").toDouble(),
+                latLong.substringAfter(",").toDouble()
+            )
+        }
+
         private const val AVERAGE_RADIUS_OF_EARTH = 6371.0
         fun calculateDistance(
             userLatLong: LatLng,

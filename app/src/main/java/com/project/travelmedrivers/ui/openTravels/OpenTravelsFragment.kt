@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI.getApplicationContext
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -30,6 +31,7 @@ import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.ui.MainViewModel
 
 class OpenTravelsFragment : Fragment() {
+    private lateinit var latlng: LatLng
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private lateinit var rvOpenTravels: RecyclerView
     private lateinit var arrayAdapter: OpenTravelArrayAdapter
@@ -63,10 +65,7 @@ class OpenTravelsFragment : Fragment() {
         bFilter = view.findViewById(R.id.bFilter)
         bFilter.setOnClickListener {
             if (etLocation.text.toString() != "" && editDistance.text.toString() != "") {
-                RelevantTravels(
-                    etLocation.text.toString(),
-                    editDistance.text.toString().toInt()
-                ).execute()
+                RelevantTravels().execute()
             } else {
                 (rvOpenTravels.adapter as OpenTravelArrayAdapter).travelList = openTravelList
                 (rvOpenTravels.adapter as OpenTravelArrayAdapter).notifyDataSetChanged()
@@ -99,7 +98,7 @@ class OpenTravelsFragment : Fragment() {
     fun autocomplete() {
         val api = "AIzaSyBUPxQMO2iI0DS_WTeetlcND9mpWaUCyyY"
         Places.initialize(getApplicationContext(), api)
-        val fields = listOf(Place.Field.ADDRESS)
+        val fields = listOf(Place.Field.ADDRESS, Place.Field.LAT_LNG)
         // Specify the types of place data to return.
 
         // Set up a PlaceSelectionListener to handle the response.
@@ -122,6 +121,7 @@ class OpenTravelsFragment : Fragment() {
                         val place = Autocomplete.getPlaceFromIntent(data)
                         // Log.i("test", "Place: ${place.name}, ${place.id}")
                         etLocation.setText(place.address.toString())
+                        latlng = place.latLng!!
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
@@ -149,7 +149,7 @@ class OpenTravelsFragment : Fragment() {
         Log.i("yyyyy", "yyyy")
     }
 
-    inner class RelevantTravels(location: String, distance: Int) : AsyncTask<Unit, Unit, Unit>() {
+    inner class RelevantTravels() : AsyncTask<Unit, Unit, Unit>() {
         override fun onPreExecute() {
             super.onPreExecute()
             pbLoading.visibility = View.VISIBLE
@@ -158,7 +158,7 @@ class OpenTravelsFragment : Fragment() {
         override fun doInBackground(vararg params: Unit?) {
             arrayAdapter.travelList = viewModel.relevantTravels(
                 editDistance.text.toString().toInt(),
-                etLocation.text.toString(),
+                latlng,
                 requireActivity().applicationContext
             )
         }

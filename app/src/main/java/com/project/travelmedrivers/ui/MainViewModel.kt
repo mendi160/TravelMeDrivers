@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.maps.model.LatLng
 import com.project.travelmedrivers.entities.Travel
 import com.project.travelmedrivers.repos.ITravelRepository
 import com.project.travelmedrivers.repos.TravelRepository
@@ -41,16 +42,12 @@ class MainViewModel(p: Application) : AndroidViewModel(p) {
         repository.updateTravel(travel)
     }
 
-    fun relevantTravels(radius: Int, location: String, context: Context): List<Travel?> {
-        val latLong = AddressTool.getLocationFromAddress(context, location)
-        return openTravelsFragment?.value!!.filter { it ->
-            latLong?.let { it1 ->
-                AddressTool.getLocationFromAddress(
-                    context, it!!.sourceAdders
-                )?.let { it2 ->
-                    AddressTool.calculateDistance(it1, it2)
-                }
-            }!! <= radius
+    fun relevantTravels(radius: Int, location: LatLng, context: Context): List<Travel?> {
+        return openTravelsFragment?.value!!.filter { travel ->
+            AddressTool.calculateDistance(
+                location,
+                AddressTool.stringToLatLong(travel!!.sourceAdders)
+            ) <= radius
         }
     }
 

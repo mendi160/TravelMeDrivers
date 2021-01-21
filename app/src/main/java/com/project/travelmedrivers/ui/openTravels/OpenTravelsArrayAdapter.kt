@@ -96,7 +96,7 @@ class OpenTravelArrayAdapter(
                     putExtra(Intent.EXTRA_SUBJECT, "offer")
                     putExtra(
                         Intent.EXTRA_TEXT, "Hi,I would like to offer you travel service " +
-                                "for your request from Source address ${travel.sourceAdders} to ${travel.destinationAddress[0]}"
+                                "for your request from: \n Source address ${travel.sourceAdders.substringBefore("&")} \nto ${travel.destinationAddress[0].substringBefore("&")}"
                     )
                     data = Uri.parse("mailto:")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
